@@ -6,7 +6,7 @@
 
 body {
     overflow-x: hidden;
-    font-family: 'Poppins', Helvetica, sans-serif;
+    font-family: poppins;
 }
 
 * {
@@ -16,13 +16,13 @@ body {
     font-size: 18px;
     color: #333 !important;
     font-weight: 100;
-    font-family: Helvetica;
+    font-family: poppins;
 }
 p.about_parah{
     font-size: 13px;
     color: #666 !important;
-    font-family: Helvetica;
-    font-weight: 400;
+    font-family: poppins;
+    font-weight: 300;
 }
 a {
     text-decoration: none !important;
@@ -90,7 +90,7 @@ a {
     text-shadow: none;
     background-color: transparent;
     border-radius: 0;
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
@@ -187,7 +187,7 @@ a {
 }
 
 .sideTabs ul li a {
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-size: 14px;
     font-weight: 100;
     font-style: normal;
@@ -210,7 +210,7 @@ a {
 }
 
 .site-title {
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-size: 24px;
     font-weight: 100;
     font-style: normal;
@@ -321,7 +321,7 @@ a {
 
 body,
 p {
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-size: 14px;
     font-weight: 100;
     font-style: normal;
@@ -331,7 +331,7 @@ p {
 /* 
 .infoContent p {
     font-size: 13px;
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     color: #666;
 } */
 
@@ -364,7 +364,7 @@ p {
 .SliderItems .Slider_Item .disc_ p {
     font-style: italic;
     margin-bottom: 0px;
-    font-family:Helvetica !important;
+    font-family:poppins !important;
     font-size: 14px;
 }
 
@@ -375,7 +375,7 @@ p {
 }
 
 .testimonial_credits .avtar_name {
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-weight: 100;
     font-style: normal;
     color: #333333;
@@ -392,7 +392,7 @@ p {
 
 .desg {
     font-size: 11px;
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-weight: 400;
     color: #217074;
 }
@@ -460,7 +460,7 @@ p {
     color: #222;
     font-size: 18px;
     font-weight: 600;
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     margin: 0;
     line-height: 50px;
 }
@@ -468,7 +468,7 @@ p {
 h2.section-title.text-start {
     color: #333;
     font-size: 30px;
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-weight: 100;
     font-style: normal;
     letter-spacing: 0px;
@@ -535,7 +535,7 @@ h2.section-title.text-start {
 }
 
 ul li {
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-size: 14px;
     font-weight: 400;
     font-style: normal;
@@ -547,7 +547,7 @@ ul li {
     font-size: 16px !important;
     margin: 0 0 5px;
     color: #333333;
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-weight: 100 !important;
     font-style: normal;
 }
@@ -694,7 +694,7 @@ h4.mt-1 {
 h3.heading {
     font-size: 21px !important;
     font-weight: 100;
-    font-family: Helvetica;
+    font-family: poppins;
     color: #333 !important;
 }
 
@@ -704,7 +704,7 @@ ul.list- :hover {
 
 h4.item-title {
     font-size: 16px;
-    font-family: Helvetica;
+    font-family: poppins;
     color: #333;
 }
 
@@ -902,7 +902,7 @@ button.active {
 
 .portfolio-title {
     color: #333;
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-size: 30px;
     font-style: normal;
     font-weight: 100;
@@ -1237,7 +1237,7 @@ p.user_pf_date {
     color: #666;
     -moz-border-radius: 6px;
     font-style: italic;
-    font-family: Helvetica, sans-serif;
+    font-family: poppins, sans-serif;
     -webkit-border-radius: 6px;
     border: 1px solid #e5e5e5;
     width: 100%;
@@ -1264,7 +1264,7 @@ p.user_pf_date {
 }
 
 .testimonial-info h5 {
-    font-family: Helvetica !important;
+    font-family: poppins !important;
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 4px;
@@ -1273,7 +1273,7 @@ p.user_pf_date {
 }
 
 .testimonial-info h6 {
-    font-family: Helvetica;
+    font-family: poppins;
     font-weight: 500;
     font-size: 12px;
     font-style: normal;
@@ -1330,7 +1330,7 @@ p.user_pf_date {
 
 .testimonial-content p{
     font-size: 14px;
-    font-family: Helvetica;
+    font-family: poppins;
     font-weight: 300;
     color: #666 !important;
 }
