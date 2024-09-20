@@ -12,44 +12,21 @@ body {
 * {
     box-sizing: border-box !important;
 }
-
-/* p {
-    font-weight: 400;
-    color: #000;
-    font-size: 14px;
-    font-family: Poppins;
-} */
-
+.heading_bl{
+    font-size: 18px;
+    color: #333 !important;
+    font-weight: 100;
+    font-family: Helvetica;
+}
+p.about_parah{
+    font-size: 13px;
+    color: #666 !important;
+    font-family: Helvetica;
+    font-weight: 100;
+}
 a {
     text-decoration: none !important;
 }
-
-h2 {
-    color: #333333;
-}
-
-/* h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: Helvetica  !important;
-    font-weight: 100;
-    font-style: normal;
-    color: #333333;
-    line-height: 1.5em;
-} */
-
-/* h3 {
-    font-size: 20px !important;
-}
-
-h4 {
-    font-size: 18px !important;
-    color: #333333;
-    margin: 5px 0;
-} */
 
 .sideTabs,
 .social_icons {
@@ -387,6 +364,7 @@ p {
 .SliderItems .Slider_Item .disc_ p {
     font-style: italic;
     margin-bottom: 0px;
+    font-family:Helvetica !important;
     font-size: 14px;
 }
 
@@ -402,7 +380,7 @@ p {
     font-style: normal;
     color: #333333;
     position: relative;
-    font-size: 1.07em;
+    font-size: 15px;
     margin: 0;
     line-height: 1.1em;
 }
@@ -1286,7 +1264,7 @@ p.user_pf_date {
 }
 
 .testimonial-info h5 {
-    font-family: Helvetica;
+    font-family: Helvetica !important;
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 4px;
@@ -1349,6 +1327,12 @@ p.user_pf_date {
     opacity: .7;
 }
 
+
+.testimonial-content p{
+    font-size: 14px;
+    font-family: Helvetica;
+    color: #666 !important;
+}
 @media screen and (min-device-width: 300px) and (max-device-width: 470px) {
     .exp_item svg.slick-arrow.slick-next {
         top: 350px;

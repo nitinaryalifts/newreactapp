@@ -122,8 +122,8 @@ function About() {
                                                 {index === 3 && <FaPaperPlane />}
                                             </div>
                                             <div className='infoContent'>
-                                                <h4 className='mt-1' dangerouslySetInnerHTML={{ __html: item.settings.title }}></h4>
-                                                <p dangerouslySetInnerHTML={{ __html: item.settings.description }}></p>
+                                                <h4 className='mt-1 heading_bl' dangerouslySetInnerHTML={{ __html: item.settings.title }}></h4>
+                                                <p className='about_parah' dangerouslySetInnerHTML={{ __html: item.settings.description }}></p>
                                             </div>
                                         </div>
                                     </Col>
