@@ -22,7 +22,7 @@ p.about_parah{
     font-size: 13px;
     color: #666 !important;
     font-family: Helvetica;
-    font-weight: 100;
+    font-weight: 400;
 }
 a {
     text-decoration: none !important;
@@ -328,12 +328,12 @@ p {
     line-height: 1.85em;
     color: #666666;
 }
-
+/* 
 .infoContent p {
     font-size: 13px;
     font-family: Helvetica !important;
     color: #666;
-}
+} */
 
 .SliderItems .Slider_Item {
     position: relative;
@@ -1331,6 +1331,7 @@ p.user_pf_date {
 .testimonial-content p{
     font-size: 14px;
     font-family: Helvetica;
+    font-weight: 300;
     color: #666 !important;
 }
 @media screen and (min-device-width: 300px) and (max-device-width: 470px) {
