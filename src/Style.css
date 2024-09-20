@@ -667,6 +667,10 @@ img.slideimg {
     .SliderItems .Slider_Item .disc_ {
         min-height: 277px !important;
     }
+        
+h2.section-title.text-start {
+    margin-inline: -10px;
+}
 }
 
 @media only screen and (max-width: 420px) {
