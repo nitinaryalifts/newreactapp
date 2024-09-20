@@ -82,7 +82,7 @@ h4 {
     font-weight: 400 !important;
     font-size: 14px;
     line-height: 26px;
-    font-family: poppins;
+    font-family: poppins !important;
 }
 
 .section_padding {
@@ -112,7 +112,7 @@ h4 {
     text-shadow: none;
     background-color: transparent;
     border-radius: 0;
-    font-family: Helvetica;
+    font-family: Helvetica !important;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
@@ -1605,5 +1605,12 @@ p.user_pf_date {
     .testimonial-info.text-left {
         position: relative;
         bottom: -5px;
+    }
+}
+
+@media screen and (min-device-width: 560px) and (max-device-width: 768px) {
+    .past_e button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--left {
+        left: auto;
+        right: 57px !important;
     }
 }
