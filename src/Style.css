@@ -1614,7 +1614,7 @@ p.user_pf_date {
 }
 @media screen and (min-device-width: 1200px) and (max-device-width: 1249px){
     .SliderItems .Slider_Item .disc_ {
-        height: 340px !important;
+        min-height: 400px !important;
     }
 }
 @media screen and (min-device-width: 801px) and (max-device-width: 1199px){
