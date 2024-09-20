@@ -58,6 +58,7 @@
     "sass-loader": "^12.3.0",
     "schema-utils": "^4.2.0",
     "semver": "^7.3.5",
+    "serve": "^14.2.3",
     "slick-carousel": "^1.8.1",
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.0.2",
@@ -69,11 +70,11 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "lint": "eslint ."
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "serve": "serve -s build"
   },
+  
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -96,6 +97,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "eslint": "^8.57.0",
     "html-webpack-plugin": "^5.6.0",
+    "react-scripts": "X.X.X",
     "source-map-loader": "^5.0.0",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4"
