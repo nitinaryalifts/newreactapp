@@ -15,7 +15,7 @@ body {
 .heading_bl{
     font-size: 18px;
     color: #333 !important;
-    font-weight: 100;
+    font-weight: 300 !important;
     font-family: poppins;
 }
 p.about_parah{
@@ -144,6 +144,7 @@ a {
     font-size: 14px;
     font-weight: 300;
     text-align: right;
+    font-family: poppins;
 }
 
 .item-period:before {
@@ -187,9 +188,9 @@ a {
 }
 
 .sideTabs ul li a {
-    font-family: poppins !important;
+    font-family: helvetica !important;
     font-size: 14px;
-    font-weight: 100;
+    font-weight: 300;
     font-style: normal;
     line-height: 1.85em;
     color: #222222;
@@ -210,9 +211,9 @@ a {
 }
 
 .site-title {
-    font-family: poppins !important;
+    font-family: Helvetica !important;
     font-size: 24px;
-    font-weight: 100;
+    font-weight: 300;
     font-style: normal;
     line-height: 1.2em;
     color: #333333;
@@ -323,7 +324,7 @@ body,
 p {
     font-family: poppins !important;
     font-size: 14px;
-    font-weight: 100;
+    font-weight: 300;
     font-style: normal;
     line-height: 1.85em;
     color: #666666;
@@ -364,6 +365,7 @@ p {
 .SliderItems .Slider_Item .disc_ p {
     font-style: italic;
     margin-bottom: 0px;
+    font-weight: 300;
     font-family:poppins !important;
     font-size: 14px;
 }
@@ -376,7 +378,7 @@ p {
 
 .testimonial_credits .avtar_name {
     font-family: poppins !important;
-    font-weight: 100;
+    font-weight: 300;
     font-style: normal;
     color: #333333;
     position: relative;
@@ -469,7 +471,7 @@ h2.section-title.text-start {
     color: #333;
     font-size: 30px;
     font-family: poppins !important;
-    font-weight: 100;
+    font-weight: 300;
     font-style: normal;
     letter-spacing: 0px;
 }
@@ -531,7 +533,7 @@ h2.section-title.text-start {
     margin: 10px 0 0;
     font-size: 1.14em;
     line-height: 1.5em;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 ul li {
@@ -548,7 +550,7 @@ ul li {
     margin: 0 0 5px;
     color: #333333;
     font-family: poppins !important;
-    font-weight: 100 !important;
+    font-weight: 300 !important;
     font-style: normal;
 }
 
@@ -687,14 +689,14 @@ img.slideimg {
 
 h4.mt-1 {
     font-size: 18px;
-    font-weight: 100;
+    font-weight: 300;
     color: #000;
 }
 
 h3.heading {
     font-size: 21px !important;
-    font-weight: 100;
-    font-family: poppins;
+    font-weight: 300;
+    font-family: poppins !important;
     color: #333 !important;
 }
 
@@ -752,7 +754,8 @@ h4.item-title {
     margin: 27px 0 0px;
     padding: 0px;
     line-height: 1.25;
-    font-weight: 400;
+    font-family: poppins;
+    font-weight: 400 !important;
     color: #333333;
 }
 
@@ -905,7 +908,7 @@ button.active {
     font-family: poppins !important;
     font-size: 30px;
     font-style: normal;
-    font-weight: 100;
+    font-weight: 300 !important;
     letter-spacing: 0;
 }
 
@@ -1265,7 +1268,7 @@ p.user_pf_date {
 
 .testimonial-info h5 {
     font-family: poppins !important;
-    font-weight: 400;
+    font-weight: 400 !important;
     font-size: 16px;
     margin-bottom: 4px;
     font-style: normal;
@@ -1274,7 +1277,7 @@ p.user_pf_date {
 
 .testimonial-info h6 {
     font-family: poppins;
-    font-weight: 500;
+    font-weight: 500 !important;
     font-size: 12px;
     font-style: normal;
     color: #217074;
@@ -1331,7 +1334,7 @@ p.user_pf_date {
 .testimonial-content p{
     font-size: 14px;
     font-family: poppins;
-    font-weight: 300;
+    font-weight: 300 !important;
     color: #666 !important;
 }
 @media screen and (min-device-width: 300px) and (max-device-width: 470px) {
