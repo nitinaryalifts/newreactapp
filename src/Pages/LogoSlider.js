@@ -49,7 +49,7 @@ const LogoSlider = () => {
 
   return (
     <div className='bg-white m-0'>
-      <section className='section_padding past_e text-start py-5 w-100'>
+      <section id='caros' className='section_padding past_e text-start py-5 w-100'>
       <h3 className='heading'>Past Employers
 </h3>
       <Carousel 
