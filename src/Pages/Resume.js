@@ -146,7 +146,7 @@ function Resume() {
             ) : (
                 <>
                     <div className='resume_section section_padding py-5 bg-white'>
-                        <h2 className='section-title text-start pt-4'>Resume</h2>
+                        <h2 className='section-title text-start pt-4'>Resum</h2>
                         <h5 className="section-description text-end">15+ Years of Experience</h5>
                         <Row className='py-5'>
                             <Col md={8}>
