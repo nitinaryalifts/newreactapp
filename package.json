@@ -70,7 +70,7 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --host 0.0.0.0",
     "build": "react-scripts build",
     "serve": "serve -s build"
   },

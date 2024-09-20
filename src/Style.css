@@ -33,7 +33,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica  !important;
     font-weight: 100;
     font-style: normal;
     color: #333333;
@@ -209,7 +209,7 @@ h4 {
 }
 
 .sideTabs ul li a {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-size: 14px;
     font-weight: 100;
     font-style: normal;
@@ -232,7 +232,7 @@ h4 {
 }
 
 .site-title {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-size: 24px;
     font-weight: 100;
     font-style: normal;
@@ -243,7 +243,7 @@ h4 {
 
 .sp-subtitle {
     font-size: 14px;
-    font-family: Poppins;
+    font-family: Poppins !important;
     color: #888;
     font-weight: 300;
 }
@@ -252,7 +252,7 @@ h4 {
     font-size: 48px;
     line-height: 1.2em;
     margin-bottom: 15px;
-    font-family: Poppins;
+    font-family: Poppins !important;
     font-weight: 300;
 }
 
@@ -310,7 +310,7 @@ h4 {
     padding: 70px 10%;
     height: 100%;
     min-height: 100px;
-    font-family: poppins;
+    font-family: poppins !important;
 }
 
 .leftimgbox {
@@ -343,7 +343,7 @@ h4 {
 
 body,
 p {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-size: 14px;
     font-weight: 100;
     font-style: normal;
@@ -353,7 +353,7 @@ p {
 
 .infoContent p {
     font-size: 13px;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     color: #666;
 }
 
@@ -396,7 +396,7 @@ p {
 }
 
 .testimonial_credits .avtar_name {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-weight: 100;
     font-style: normal;
     color: #333333;
@@ -413,7 +413,7 @@ p {
 
 .desg {
     font-size: 11px;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-weight: 400;
     color: #217074;
 }
@@ -481,7 +481,7 @@ p {
     color: #222;
     font-size: 18px;
     font-weight: 600;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     margin: 0;
     line-height: 50px;
 }
@@ -489,7 +489,7 @@ p {
 h2.section-title.text-start {
     color: #333;
     font-size: 30px;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-weight: 100;
     font-style: normal;
     letter-spacing: 0px;
@@ -556,7 +556,7 @@ h2.section-title.text-start {
 }
 
 ul li {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-size: 14px;
     font-weight: 400;
     font-style: normal;
@@ -568,7 +568,7 @@ ul li {
     font-size: 16px !important;
     margin: 0 0 5px;
     color: #333333;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-weight: 100 !important;
     font-style: normal;
 }
@@ -715,7 +715,7 @@ h4.mt-1 {
 h3.heading {
     font-size: 21px !important;
     font-weight: 100;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica;
     color: #333 !important;
 }
 
@@ -725,7 +725,7 @@ ul.list- :hover {
 
 h4.item-title {
     font-size: 16px;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica;
     color: #333;
 }
 
@@ -923,7 +923,7 @@ button.active {
 
 .portfolio-title {
     color: #333;
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica !important;
     font-size: 30px;
     font-style: normal;
     font-weight: 100;
@@ -1285,7 +1285,7 @@ p.user_pf_date {
 }
 
 .testimonial-info h5 {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica;
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 4px;
@@ -1294,7 +1294,7 @@ p.user_pf_date {
 }
 
 .testimonial-info h6 {
-    font-family: Helvetica, sans-serif;
+    font-family: Helvetica;
     font-weight: 500;
     font-size: 12px;
     font-style: normal;
