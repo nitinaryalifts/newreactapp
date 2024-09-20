@@ -632,8 +632,8 @@ img.slideimg {
     }
 
     img.slideimg {
-        width: 100px;
-        height: 60px;
+        width: 110px !important;
+        height: 60px !important;
     }
 }
 
@@ -644,7 +644,7 @@ img.slideimg {
     }
 
     img.slideimg {
-        width: 80px !important;
+        width: 100px !important;
         height: 60px !important;
     }
 
@@ -1082,7 +1082,7 @@ p.user_pf_date {
     }
 
     img.slideimg {
-        width: 100px !important;
+        width: 135px !important;
         height: 60px !important;
     }
 }
@@ -1104,7 +1104,7 @@ p.user_pf_date {
     }
 
     img.slideimg {
-        width: 80px !important;
+        width: 110px !important;
         height: 60px !important;
     }
 
