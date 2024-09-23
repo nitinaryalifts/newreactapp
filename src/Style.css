@@ -485,6 +485,7 @@ h2.section-title.text-start {
 .exp_item .companyN {
     max-width: 200px;
     max-height: 48px;
+    margin-bottom: 10px;
 }
 
 .exp_item {
