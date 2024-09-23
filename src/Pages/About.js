@@ -9,6 +9,7 @@ import Logosslide from './LogoSlider';
 import { Button, Col, Row } from 'react-bootstrap';
 import { ClipLoader } from 'react-spinners'; // Import the spinner component
 import axios from 'axios';
+import ContactModal from './ContactModal';
 
 function About() {
     const [theme, setTheme] = useState("");
@@ -16,6 +17,10 @@ function About() {
     const [whatwedo, setWhatwedo] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
     const [loading, setLoading] = useState(true); // Add loading state for all API requests
+    const handleShowContactModal = () => setShowContactModal(true);
+    const handleCloseContactModal = () => setShowContactModal(false);
+
+    const [showContactModal, setShowContactModal] = useState(false);
 
     useEffect(() => {
         // Set loading to true while fetching data
@@ -100,7 +105,13 @@ function About() {
                                             {theme.buttons && theme.buttons.length > 0 && (
                                                 <>
                                                     <a href={theme.buttons[0].url} target="yes" className="custom_btn custom-primary me-2" dangerouslySetInnerHTML={{ __html: theme.buttons[0].button_title }}></a>
-                                                    <a href={theme.buttons[1].url} target="" className="custom_btn custom-secondary" dangerouslySetInnerHTML={{ __html: theme.buttons[1].button_title }}></a>
+                                                    <a href={theme.buttons[1].url} 
+   target="" 
+   className="custom_btn custom-secondary" 
+   onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}
+   dangerouslySetInnerHTML={{ __html: theme.buttons[1].button_title }}>
+</a>
+
                                                 </>
                                             )}
                                         </div>
@@ -153,6 +164,7 @@ function About() {
                             </div>
                         </section>
                     </div>
+                    <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
                 </>
             )}
         </div>
