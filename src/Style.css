@@ -14,13 +14,13 @@ body {
 }
 h4.heading_bl{
     font-size: 18px;
-    color: #333 !important;
+    color: #000 !important;
     font-weight: 300 !important;
     font-family: poppins;
 }
 p.about_parah{
     font-size: 13px;
-    color: #666 !important;
+    color: #403f3f !important;
     font-family: poppins;
     font-weight: 300;
 }
