@@ -537,7 +537,7 @@ ul li {
     font-weight: 300;
     font-style: normal;
     line-height: 1.85em;
-    color: #666;
+    color: #000000;
 }
 
 .certi-content h4 {
@@ -695,7 +695,7 @@ ul.list- :hover {
 
 h4.item-title {
     font-size: 16px;
-    font-family: 300 !important;
+    font-weight: 300 !important;
     font-family: poppins;
     color: #333;
 }
@@ -1014,10 +1014,16 @@ i.fa.fa-calendar {
 p.user_pf_client {
     margin-top: 15px !important;
     margin-bottom: 15px !important;
+    color: #000;
+    font-weight: 300;
+    font-family: poppins;
 }
 
 p.user_pf_date {
     margin-bottom: 15px !important;
+    color: #000;
+    font-weight: 300;
+    font-family: poppins;
 }
 
 .single-post-content blockquote {
@@ -1330,7 +1336,7 @@ p.user_pf_date {
     font-size: 14px;
     font-family: poppins;
     font-weight: 300 !important;
-    color: #666 !important;
+    color: #000000 !important;
 }
 
 @media screen and (min-device-width: 300px) and (max-device-width: 470px) {
@@ -1668,9 +1674,13 @@ p.user_pf_date {
         min-height: 455px !important;
     }
 }
+
+
+/* Single */
 @media screen and (min-device-width: 500px) and (max-device-width: 1000px){
 .main_Content {
     padding-inline: 20px;
     padding-top: 40px;
+    padding-bottom: 20px;
 }
 }
