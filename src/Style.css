@@ -974,7 +974,9 @@ button.active {
 }
 
 .single-post-title {
-    font-size: 32px;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
     line-height: 50px;
     color: #333333;
     padding-bottom: 30px;
@@ -988,6 +990,15 @@ button.active {
 .single-post-desc h3 {
     border-bottom: 2px solid #217074;
     display: inline-block;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: poppins;
+}
+.single-post-desc h4{
+    font-size: 18px;
+    font-weight: 300;
+    color: #333;
+    font-family: poppins;
 }
 
 i.fa.fa-user {
