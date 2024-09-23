@@ -1647,12 +1647,12 @@ p.user_pf_date {
 }
 @media screen and (min-device-width: 600px) and (max-device-width: 689px){
     .SliderItems .Slider_Item .disc_ {
-        height: 190px !important;
+        height: 225px !important;
     }
 }
 @media screen and (min-device-width: 550px) and (max-device-width: 599px){
     .SliderItems .Slider_Item .disc_ {
-        height: 220px !important;
+        height: 250px !important;
     }
 }
 @media screen and (min-device-width: 461px) and (max-device-width: 549px){
