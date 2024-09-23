@@ -1478,10 +1478,12 @@ p.user_pf_date {
 
     .exp_item svg.slick-arrow.slick-next {
         top: 480px !important;
+        right: 30px;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
         top: 480px !important;
+        left: -58px;
     }
 
     .testimonial-info.text-left {
@@ -1501,10 +1503,12 @@ p.user_pf_date {
 
     .exp_item svg.slick-arrow.slick-next {
         top: 510px !important;
+        right: 25px;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
         top: 510px !important;
+        left: -53px;
     }
 
     .testimonial-info.text-left {
@@ -1528,10 +1532,12 @@ p.user_pf_date {
 
     .exp_item svg.slick-arrow.slick-next {
         top: 532px !important;
+        right: 20px;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
         top: 532px !important;
+        left: -48px;
     }
 
     .testimonial-info.text-left {
@@ -1551,10 +1557,12 @@ p.user_pf_date {
 
     .exp_item svg.slick-arrow.slick-next {
         top: 595px !important;
+        right: 20px;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
         top: 595px !important;
+        left: -48px;
     }
 
     .testimonial-info.text-left {
@@ -1574,10 +1582,12 @@ p.user_pf_date {
 
     .exp_item svg.slick-arrow.slick-next {
         top: 655px !important;
+        right: 20px;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
         top: 655px !important;
+        left: -48px;
     }
 
     .testimonial-info.text-left {
@@ -1601,10 +1611,12 @@ p.user_pf_date {
 
     .exp_item svg.slick-arrow.slick-next {
         top: 707px !important;
+        right: 20px;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
         top: 707px !important;
+        left: -48px;
     }
 
     .testimonial-info.text-left {
