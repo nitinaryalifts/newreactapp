@@ -785,6 +785,7 @@ h4.item-title {
     bottom: 5px;
     background: transparent !important;
     border: 1px solid #e5e5e5;
+    margin: 1px;
     min-height: 25px !important;
     min-width: 25px !important;
     width: 25px !important;
@@ -805,7 +806,7 @@ h4.item-title {
 }
 
 .past_e button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--left {
-    right: 50px;
+    right: 45px;
     left: unset;
 }
 
