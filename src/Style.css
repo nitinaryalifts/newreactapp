@@ -1668,3 +1668,9 @@ p.user_pf_date {
         min-height: 455px !important;
     }
 }
+@media screen and (min-device-width: 500px) and (max-device-width: 1000px){
+.main_Content {
+    padding-inline: 20px;
+    padding-top: 40px;
+}
+}
