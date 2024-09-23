@@ -1406,43 +1406,43 @@ p.user_pf_date {
 
 @media screen and (min-device-width: 810px) and (max-device-width: 889px) {
     .testimonial-content p {
-        height: 430px !important;
+        height: 490px !important;
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 507px !important;
+        top: 577px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 507px !important;
+        top: 577px !important;
     }
 }
 
 @media screen and (min-device-width: 767px) and (max-device-width: 809px) {
     .testimonial-content p {
-        height: 480px !important;
+        height: 500px !important;
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 565px !important;
+        top: 585px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 565px !important;
+        top: 585px !important;
     }
 }
 
 @media screen and (min-device-width: 710px) and (max-device-width: 766px) {
     .testimonial-content p {
-        height: 272px !important;
+        height: 305px !important;
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 350px !important;
+        top: 388px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 350px !important;
+        top: 388px !important;
     }
 
     .testimonial-info.text-left {
@@ -1453,15 +1453,15 @@ p.user_pf_date {
 
 @media screen and (min-device-width: 630px) and (max-device-width: 709px) {
     .testimonial-content p {
-        height: 315px !important;
+        height: 365px !important;
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 395px !important;
+        top: 450px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 395px !important;
+        top: 450px !important;
     }
 
     .testimonial-info.text-left {
@@ -1472,15 +1472,15 @@ p.user_pf_date {
 
 @media screen and (min-device-width: 575px) and (max-device-width: 629px) {
     .testimonial-content p {
-        height: 347px !important;
+        height: 395px !important;
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 425px !important;
+        top: 480px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 425px !important;
+        top: 480px !important;
     }
 
     .testimonial-info.text-left {
@@ -1495,15 +1495,15 @@ p.user_pf_date {
 
 @media screen and (min-device-width: 540px) and (max-device-width: 574px) {
     .testimonial-content p {
-        height: 360px !important;
+        height: 417px !important;
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 438px !important;
+        top: 510px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 438px !important;
+        top: 510px !important;
     }
 
     .testimonial-info.text-left {
@@ -1522,15 +1522,15 @@ p.user_pf_date {
     }
 
     .testimonial-content p {
-        height: 390px !important;
+        height: 440px !important;
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 470px !important;
+        top: 532px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 470px !important;
+        top: 532px !important;
     }
 
     .testimonial-info.text-left {
@@ -1549,11 +1549,11 @@ p.user_pf_date {
     }
 
     .exp_item svg.slick-arrow.slick-next {
-        top: 585px !important;
+        top: 595px !important;
     }
 
     .exp_item svg.slick-arrow.slick-prev {
-        top: 585px !important;
+        top: 595px !important;
     }
 
     .testimonial-info.text-left {
