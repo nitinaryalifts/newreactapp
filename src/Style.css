@@ -995,10 +995,10 @@ button.active {
     font-family: poppins;
 }
 .single-post-desc h4{
-    font-size: 18px;
-    font-weight: 300;
-    color: #333;
-    font-family: poppins;
+    font-size: 18px !important;
+    font-weight: 300 !important;
+    color: #333 !important;
+    font-family: poppins !important;
 }
 
 i.fa.fa-user {
