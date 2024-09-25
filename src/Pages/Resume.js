@@ -5,9 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import '../Style.css'; // Ensure your custom CSS is imported
-import { ClipLoader } from 'react-spinners'; // Import the spinner component
-import { Row, Col } from 'react-bootstrap'; // Import Row and Col
+import '../Style.css';
+import { ClipLoader } from 'react-spinners';
+import { Row, Col } from 'react-bootstrap'; 
 
 
 // API Endpoints
@@ -47,7 +47,7 @@ function Resume() {
             } catch (error) {
                 console.error('Error fetching experiences:', error);
             } finally {
-                setLoading(false); // Set loading to false once data is fetched
+                setLoading(false);
             }
         };
         fetchExperiences();
@@ -104,7 +104,7 @@ function Resume() {
         const fetchTags = async () => {
             try {
                 const response = await axios.get(APIT);
-                console.log("Tags response:", response.data); // Check what is being fetched
+                console.log("Tags response:", response.data);
                 setTags(response.data);
             } catch (error) {
                 console.error('Error fetching tags:', error);
@@ -180,6 +180,7 @@ function Resume() {
                                                                                 <Slider {...sliderSettings} className="custom-carousel">
                                                                                     {testimonials[testimonialId].map((item, index) => (
                                                                                         <div key={item.id} className="testimonial-container">
+                                                                                            <div className=''>
                                                                                             <div className="testimonial-content">
                                                                                                 <p>{stripHtmlTags(item.content)}</p>
                                                                                             </div>
@@ -196,11 +197,11 @@ function Resume() {
                                                                                                     <h6>{item.post_meta.tss_company}</h6>
                                                                                                 </div>
                                                                                             </div>
+                                                                                            </div>
                                                                                         </div>
                                                                                     ))}
                                                                                 </Slider>
                                                                             )}
-
                                                                     </div>
                                                                 </li>
                                                             );

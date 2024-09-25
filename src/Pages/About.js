@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../Style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { FaCompass, FaDiagramProject, FaLightbulb, FaPaperPlane, } from "react-icons/fa6";
+import { FaCompass, FaDiagramProject, FaLightbulb, FaPaperPlane } from "react-icons/fa6";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Logosslide from './LogoSlider';
-import { Button, Col, Row } from 'react-bootstrap';
-import { ClipLoader } from 'react-spinners'; // Import the spinner component
+import { Col, Row } from 'react-bootstrap';
+import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import ContactModal from './ContactModal';
+import Carousel from 'react-bootstrap/Carousel';
 
 function About() {
     const [theme, setTheme] = useState("");
     const [bigavtar, setBigAvtar] = useState([]);
     const [whatwedo, setWhatwedo] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
-    const [loading, setLoading] = useState(true); // Add loading state for all API requests
+    const [loading, setLoading] = useState(true);
+    const [showContactModal, setShowContactModal] = useState(false);
+    const sliderRef = useRef([]);
+
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
 
-    const [showContactModal, setShowContactModal] = useState(false);
-
     useEffect(() => {
-        // Set loading to true while fetching data
         axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section")
             .then((resp) => {
                 setTheme(resp.data[0].settings);
                 setBigAvtar(resp.data[0].settings.image.url);
-                setLoading(false); // Data loaded, stop loading spinner
+                setLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching main section data", error);
-                setLoading(false); // Stop loading spinner even on error
+                setLoading(false);
             });
     }, []);
 
@@ -82,7 +83,6 @@ function About() {
         <div className='main_Content'>
             {loading ? (
                 <div className="text-center loader_pos_abs">
-                    {/* Spinner is shown while loading */}
                     <ClipLoader color="#217074" loading={loading} size={80} />
                 </div>
             ) : (
@@ -105,13 +105,12 @@ function About() {
                                             {theme.buttons && theme.buttons.length > 0 && (
                                                 <>
                                                     <a href={theme.buttons[0].url} target="yes" className="custom_btn custom-primary me-2" dangerouslySetInnerHTML={{ __html: theme.buttons[0].button_title }}></a>
-                                                    <a href={theme.buttons[1].url} 
-   target="" 
-   className="custom_btn custom-secondary" 
-   onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}
-   dangerouslySetInnerHTML={{ __html: theme.buttons[1].button_title }}>
-</a>
-
+                                                    <a href={theme.buttons[1].url}
+                                                       target=""
+                                                       className="custom_btn custom-secondary"
+                                                       onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}
+                                                       dangerouslySetInnerHTML={{ __html: theme.buttons[1].button_title }}>
+                                                    </a>
                                                 </>
                                             )}
                                         </div>
@@ -145,30 +144,34 @@ function About() {
                         <Logosslide />
 
                         <section className='TestimonialSlider bg-white section_padding text-start py-5'>
-                            <h3 className='heading'>Testimonials</h3>
-                            <div className='SliderItems pb-4 pb-sm-5'>
-                                <Slider {...settings}>
-                                    {testimonials.map((items, key) => (
-                                        <div className='Slider_Item' key={key}>
-                                            <div className='disc_'>
-                                                <p>{items.quote}</p>
-                                            </div>
-                                            <div className='testimonial_credits'>
-                                                <p className='avtar_name'>{items.name}</p>
-                                                <a href={items.link} className='desg'>{items.company}</a>
-                                                <img className='sliderAvtar_' src={items.image.url} alt="testimonial" />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </Slider>
-                            </div>
-                        </section>
+    <h3 className='heading'>Testimonials</h3>
+    <div className='SliderItems pb-4 pb-sm-5'>
+        <Slider {...settings}>
+            {testimonials.map((items, key) => (
+                <div className='Slider_Item' key={key}>
+                        <div className='disc_'>
+                            <p>{items.quote}</p>
+                        </div>
+                        <div className='testimonial_credits'>
+                            <p className='avtar_name'>{items.name}</p>
+                            <a href={items.link} className='desg'>{items.company}</a>
+                            <img className='sliderAvtar_' src={items.image.url} alt="testimonial" />
+                        </div>
+                    </div>
+            ))}
+        </Slider>
+    </div>
+    <div>
+        
+    </div>
+</section>
+
                     </div>
                     <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
                 </>
             )}
         </div>
-    )
+    );
 }
 
 export default About;

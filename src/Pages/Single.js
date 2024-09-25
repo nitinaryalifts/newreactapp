@@ -77,7 +77,7 @@ const Single = () => {
       <div className='row mt-3 mb-1'>
         <div className='col-md-12 portfolio-top-nav'>
           <div className='d-flex justify-content-end w-100 position-relative'>
-            {hasPrevious && (
+            {/* {hasPrevious && (
               <a href='' onClick={(e) => { e.preventDefault(); handlePrevious(); }} className='icon-box text-white p-2 m-1'>
                 <i className="fa-solid fa-angle-left"></i>
               </a>
@@ -86,7 +86,7 @@ const Single = () => {
               <a href='' onClick={(e) => { e.preventDefault(); handleNext(); }} className='icon-box text-white p-2 m-1'>
                 <i className="fa-solid fa-angle-right"></i>
               </a>
-            )}
+            )} */}
             <a href='' onClick={(e) => { e.preventDefault(); handleClose(); }} className='icon-box text-white p-2 m-1'>
               <i className="fa-solid fa-xmark"></i>
             </a>
