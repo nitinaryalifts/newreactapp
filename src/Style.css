@@ -1360,6 +1360,7 @@ ul ul {
 .testimonial-content p{
     font-size: 14px;
     font-family: poppins;
+    font-style: italic;
     font-weight: 300 !important;
     color: #000000 !important;
 }
