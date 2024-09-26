@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,8 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import '../Style.css';
 import { ClipLoader } from 'react-spinners';
-import { Row, Col } from 'react-bootstrap'; 
-
+import { Row, Col } from 'react-bootstrap';
 
 // API Endpoints
 const API = "https://mancuso.ai/mancusov2/wp-json/v1/timeline";
@@ -22,8 +21,38 @@ function Resume() {
     const [education, setEducation] = useState([]);
     const [tags, setTags] = useState([]);
     const [testimonials, setTestimonials] = useState({});
-    const [activeIndices, setActiveIndices] = useState({});
     const [loading, setLoading] = useState(true); // Add loading state
+    const sliderRef = useRef(null);
+
+    const setEqualHeight = () => {
+        if (sliderRef.current) {
+            const slides = sliderRef.current.innerSlider.list.querySelectorAll('.slide_ht');
+            let maxHeight = 0;
+
+            // Reset heights before measuring
+            slides.forEach(slide => {
+                slide.style.height = 'auto';
+            });
+
+            slides.forEach(slide => {
+                maxHeight = Math.max(maxHeight, slide.offsetHeight);
+            });
+
+            slides.forEach(slide => {
+                slide.style.height = `${maxHeight}px`;
+            });
+        }
+    };
+
+    useEffect(() => {
+        setEqualHeight();
+
+        window.addEventListener('resize', setEqualHeight);
+
+        return () => {
+            window.removeEventListener('resize', setEqualHeight);
+        };
+    }, [testimonials]);
 
     useEffect(() => {
         const fetchExperiences = async () => {
@@ -113,12 +142,6 @@ function Resume() {
         fetchTags();
     }, []);
 
-    const handleSelect = (testimonialId, index) => {
-        setActiveIndices(prev => ({
-            ...prev,
-            [testimonialId]: index,
-        }));
-    };
     const sliderSettings = {
         dots: false,
         infinite: false,
@@ -134,7 +157,6 @@ function Resume() {
             </div>
         )
     };
-
 
     return (
         <div className='main_Content'>
@@ -173,30 +195,30 @@ function Resume() {
                                                                         )}
                                                                         <p dangerouslySetInnerHTML={{ __html: removeShortcodes(timelineItem.text) }}></p>
 
-                                                                            {/* Testimonial Slider */}
-                                                                            {testimonialId &&
+                                                                        {/* Testimonial Slider */}
+                                                                        {testimonialId &&
                                                                             testimonials[testimonialId] &&
                                                                             testimonials[testimonialId].length > 0 && (
-                                                                                <Slider {...sliderSettings} className="custom-carousel">
-                                                                                    {testimonials[testimonialId].map((item, index) => (
+                                                                                <Slider key={testimonialId} ref={sliderRef} {...sliderSettings} className="custom-carousel">
+                                                                                    {testimonials[testimonialId].map((item) => (
                                                                                         <div key={item.id} className="testimonial-container">
-                                                                                            <div className=''>
-                                                                                            <div className="testimonial-content">
-                                                                                                <p>{stripHtmlTags(item.content)}</p>
-                                                                                            </div>
-                                                                                            <div className='d-flex gap-3'>
-                                                                                                <div className="testimonial-image">
-                                                                                                    <img
-                                                                                                        src={item.featured_image}
-                                                                                                        className="d-block"
-                                                                                                        alt={item.title}
-                                                                                                    />
+                                                                                            <div className='slide_ht d-flex flex-column justify-content-between'>
+                                                                                                <div className="testimonial-content">
+                                                                                                    <p>{stripHtmlTags(item.content)}</p>
                                                                                                 </div>
-                                                                                                <div className="testimonial-info text-left">
-                                                                                                    <h5>{item.title}</h5>
-                                                                                                    <h6>{item.post_meta.tss_company}</h6>
+                                                                                                <div className='d-flex gap-3'>
+                                                                                                    <div className="testimonial-image">
+                                                                                                        <img
+                                                                                                            src={item.featured_image}
+                                                                                                            className="d-block"
+                                                                                                            alt={item.title}
+                                                                                                        />
+                                                                                                    </div>
+                                                                                                    <div className="testimonial-info text-left">
+                                                                                                        <h5>{item.title}</h5>
+                                                                                                        <h6>{item.post_meta.tss_company}</h6>
+                                                                                                    </div>
                                                                                                 </div>
-                                                                                            </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     ))}
@@ -221,7 +243,7 @@ function Resume() {
                                 <h3 className="heading">Education</h3>
                                 {education[0] && (
                                     <div className='collegeCard mb-5' key={education[0].id}>
-                                        <a href={education[0].settings.image.url} target="_blank">
+                                        <a href={education[0].settings.image.url} target="_blank" rel="noopener noreferrer">
                                             <div className='coll_inner d-flex align-items-stretch'>
                                                 <div className='coll_logo align-content-center p-4'>
                                                     <img src={education[0].settings.logo.url} alt={education[0].settings.title} className="img-fluid" />
@@ -246,7 +268,7 @@ function Resume() {
                                     <div className='collegeCardContainer'>
                                         {certificates.slice(1).map((certificate) => (
                                             <div className='collegeCard' key={certificate.id}>
-                                                <a href={certificate.settings.image.url} target="_blank">
+                                                <a href={certificate.settings.image.url} target="_blank" rel="noopener noreferrer">
                                                     <div className='coll_inner d-flex align-items-stretch'>
                                                         <div className='coll_logo align-content-center p-4'>
                                                             <img src={certificate.settings.logo.url} alt={certificate.name} className="img-fluid" />
@@ -267,19 +289,19 @@ function Resume() {
                                             </div>
                                         ))}
                                     </div>
-                            <h3 className="heading">Skills</h3>
-                            <ul className='ps-0'>
-                                {tags.map((tag) => (
-                                    <div key={tag.id}>
-                                        {tag.settings.knowledges.map((knowledgeItem) => (
-                                            <li className='customBages'>
-                                                {knowledgeItem.knowledge}
-                                            </li>
+                                    <h3 className="heading">Skills</h3>
+                                    <ul className='ps-0'>
+                                        {tags.map((tag) => (
+                                            <div key={tag.id}>
+                                                {tag.settings.knowledges.map((knowledgeItem, index) => (
+                                                    <li className='customBages' key={index}>
+                                                        {knowledgeItem.knowledge}
+                                                    </li>
+                                                ))}
+                                            </div>
                                         ))}
-                                    </div>
-                                ))}
-                            </ul>
-                        </div>
+                                    </ul>
+                                </div>
                             </Col>
                         </Row>
                     </div>

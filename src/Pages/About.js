@@ -10,7 +10,6 @@ import { Col, Row } from 'react-bootstrap';
 import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import ContactModal from './ContactModal';
-import Carousel from 'react-bootstrap/Carousel';
 
 function About() {
     const [theme, setTheme] = useState("");
@@ -19,10 +18,32 @@ function About() {
     const [testimonials, setTestimonials] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showContactModal, setShowContactModal] = useState(false);
-    const sliderRef = useRef([]);
+    const sliderRef = useRef(null);
 
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
+
+    // Set the max height for slider items
+    const setEqualHeight = () => {
+        if (sliderRef.current) {
+            const slidesContainer = sliderRef.current.innerSlider.list;
+            const slides = slidesContainer.querySelectorAll('.new_height'); // Get all slides
+
+            let maxHeight = 0;
+
+            slides.forEach(slide => {
+                slide.style.height = 'auto';
+            });
+
+            slides.forEach(slide => {
+                maxHeight = Math.max(maxHeight, slide.offsetHeight);
+            });
+
+            slides.forEach(slide => {
+                slide.style.height = `${maxHeight}px`; // Apply max height
+            });
+        }
+    };
 
     useEffect(() => {
         axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section")
@@ -57,26 +78,40 @@ function About() {
             });
     }, []);
 
-    var settings = {
+    // Recalculate height when testimonials data is fetched
+    useEffect(() => {
+        if (testimonials.length > 0) {
+            setEqualHeight();
+        }
+
+        window.addEventListener('resize', setEqualHeight);
+
+        return () => {
+            window.removeEventListener('resize', setEqualHeight);
+        };
+    }, [testimonials]);
+
+    const sliderSettings = {
         dots: false,
-        arrow: true,
+        arrows: true,
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 1,
         nextArrow: <IoIosArrowForward />,
         prevArrow: <IoIosArrowBack />,
+        afterChange: () => setEqualHeight(),
         responsive: [
             {
                 breakpoint: 1200,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    arrow: true,
+                    arrows: true,
                     infinite: true,
-                    dots: false
-                }
-            }
-        ]
+                    dots: false,
+                },
+            },
+        ],
     };
 
     return (
@@ -144,28 +179,26 @@ function About() {
                         <Logosslide />
 
                         <section className='TestimonialSlider bg-white section_padding text-start py-5'>
-    <h3 className='heading'>Testimonials</h3>
-    <div className='SliderItems pb-4 pb-sm-5'>
-        <Slider {...settings}>
-            {testimonials.map((items, key) => (
-                <div className='Slider_Item' key={key}>
-                        <div className='disc_'>
-                            <p>{items.quote}</p>
-                        </div>
-                        <div className='testimonial_credits'>
-                            <p className='avtar_name'>{items.name}</p>
-                            <a href={items.link} className='desg'>{items.company}</a>
-                            <img className='sliderAvtar_' src={items.image.url} alt="testimonial" />
-                        </div>
-                    </div>
-            ))}
-        </Slider>
-    </div>
-    <div>
-        
-    </div>
-</section>
-
+                            <h3 className='heading'>Testimonials</h3>
+                            <div className='SliderItems pb-4 pb-sm-5'>
+                                <Slider {...sliderSettings} ref={sliderRef}>
+                                    {testimonials.map((items, key) => (
+                                        <div className='Slider_Item' key={key}>
+                                            <div className='new_height d-flex flex-column'>
+                                            <div className='disc_'>
+                                                <p>{items.quote}</p>
+                                            </div>
+                                            <div className='testimonial_credits'>
+                                                <p className='avtar_name'>{items.name}</p>
+                                                <a href={items.link} className='desg'>{items.company}</a>
+                                                <img className='sliderAvtar_' src={items.image.url} alt="testimonial" />
+                                            </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </Slider>
+                            </div>
+                        </section>
                     </div>
                     <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
                 </>
