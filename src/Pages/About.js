@@ -46,7 +46,11 @@ function About() {
 
     useEffect(() => {
         if (testimonials.length > 0) {
-            setEqualHeight();
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    setEqualHeight();
+                });
+            }, 100);
         }
 
         window.addEventListener('resize', setEqualHeight);
@@ -56,7 +60,6 @@ function About() {
         };
     }, [testimonials]);
 
-    
     useEffect(() => {
         axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section")
             .then((resp) => {
@@ -177,27 +180,24 @@ function About() {
                         <Logosslide />
 
                         <section className='TestimonialSlider bg-white section_padding text-start py-5'>
-    <h3 className='heading'>Testimonials</h3>
-    <div className='SliderItems pb-4 pb-sm-5'>
-        <Slider {...settings} ref={sliderRef}>
-            {testimonials.map((items, key) => (
-                <div className='Slider_Item d-flex flex-column' key={key}>
-                        <div className='disc_'>
-                            <p>{items.quote}</p>
-                        </div>
-                        <div className='testimonial_credits'>
-                            <p className='avtar_name'>{items.name}</p>
-                            <a href={items.link} className='desg'>{items.company}</a>
-                            <img className='sliderAvtar_' src={items.image.url} alt="testimonial" />
-                        </div>
-             </div>
-            ))}
-        </Slider>
-    </div>
-    <div>
-        
-    </div>
-</section>
+                            <h3 className='heading'>Testimonials</h3>
+                            <div className='SliderItems pb-4 pb-sm-5'>
+                                <Slider {...settings} ref={sliderRef}>
+                                    {testimonials.map((items, key) => (
+                                        <div className='Slider_Item d-flex flex-column' key={key}>
+                                            <div className='disc_'>
+                                                <p>{items.quote}</p>
+                                            </div>
+                                            <div className='testimonial_credits'>
+                                                <p className='avtar_name'>{items.name}</p>
+                                                <a href={items.link} className='desg'>{items.company}</a>
+                                                <img className='sliderAvtar_' src={items.image.url} alt="testimonial" />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </Slider>
+                            </div>
+                        </section>
 
                     </div>
                     <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
