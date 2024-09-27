@@ -1261,7 +1261,7 @@ p.user_pf_date {
     -webkit-border-radius: 6px;
     border: 1px solid #e5e5e5;
     position: relative;
-    overflow: visible;
+    overflow: hidden !important;
     height: 100% !important;
 }
 
