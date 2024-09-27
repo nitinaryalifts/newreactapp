@@ -16,13 +16,13 @@ const APIT = "https://mancuso.ai/mancusov2/wp-json/v1/get_tags";
 const APIS = "https://mancuso.ai/mancusov2/wp-json/v1/get_testimonial_byid/";
 
 function Resume() {
+    const sliderRef = useRef(null);
     const [experiences, setExperiences] = useState([]);
     const [certificates, setCertificates] = useState([]);
     const [education, setEducation] = useState([]);
     const [tags, setTags] = useState([]);
     const [testimonials, setTestimonials] = useState({});
     const [loading, setLoading] = useState(true); // Add loading state
-    const sliderRef = useRef(null);
 
     const setEqualHeight = () => {
         if (sliderRef.current) {
@@ -202,7 +202,7 @@ function Resume() {
                                                                                 <Slider key={testimonialId} ref={sliderRef} {...sliderSettings} className="custom-carousel">
                                                                                     {testimonials[testimonialId].map((item) => (
                                                                                         <div key={item.id} className="testimonial-container">
-                                                                                            <div className='slide_ht d-flex flex-column justify-content-between'>
+                                                                                            <div className='slide_ht d-flex flex-column'>
                                                                                                 <div className="testimonial-content">
                                                                                                     <p>{stripHtmlTags(item.content)}</p>
                                                                                                 </div>

@@ -1238,9 +1238,8 @@ p.user_pf_date {
     border-radius: 50%;
 }
 
-
 .testimonial-content {
-    margin-inline: 50px;
+    margin-inline: 30px;
     padding: 1.4em 1.8em;
     background-color: #fdfdfd;
     border-radius: 6px;
@@ -1253,7 +1252,6 @@ p.user_pf_date {
     position: relative;
     overflow: hidden !important;
     height: 100% !important;
-
 }
 
 ul ul {
@@ -1287,7 +1285,9 @@ ul ul {
     font-style: normal;
     color: #217074;
 }
-
+/* .exp_item svg.slick-arrow{
+    top: 95% !important;
+} */
 .exp_item svg.slick-arrow.slick-next:hover {
     background: #124447;
     color: #fff !important;
@@ -1306,28 +1306,28 @@ ul ul {
     border: 1px solid #e5e5e5 !important;
     width: 25px !important;
     height: 25px !important;
-    font-family: FontAwesome;
+    margin: 2px;
     font-size: 18px !important;
-    top: 320px;
+    top: 95%;
     z-index: 9;
-    right: 50px;
+    right: 28px;
     padding: 3px !important;
 }
 
 .exp_item svg.slick-arrow.slick-prev {
     transition: all 0.3s ease-in-out;
-    z-index: 9;
     color: #766d6d !important;
     border: 1px solid #e5e5e5 !important;
     margin: 2px;
-    position: relative;
     width: 25px !important;
     height: 25px !important;
-    font-family: FontAwesome;
     font-size: 18px !important;
-    top: 320px;
-    left: -78px;
+    z-index: 9999;
+    top: 95%;
     margin-left: auto;
+    right: 60px;
+    left: 0;
+    /* margin-left: auto; */
     padding: 3px !important;
 }
 
