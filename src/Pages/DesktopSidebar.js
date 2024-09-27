@@ -1,23 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { FaLinkedinIn } from 'react-icons/fa6';
 import { NavLink, Link } from 'react-router-dom';
-import { Nav, Image } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import axios from 'axios';
 import ContactModal from './ContactModal';
+
+const api = axios.create({
+  baseURL: 'https://mancuso.ai/wp-json/v1',
+});
 
 function DesktopSidebar({ closeMenu }) {
   const [sidebar, setSidebar] = useState("");
   const [headerimg, setHeaderimg] = useState("");
   const [showContactModal, setShowContactModal] = useState(false);
-  useEffect(() => {
-    axios.get("https://mancuso.ai/wp-json/v1/theme-settings")
-      .then((resp) => {
-        console.log(`Desktop SideBar API`);
-        console.log(resp.data);
-        setSidebar(resp.data);
-        setHeaderimg(resp.data.photo.url);
-      });
+
+  const fetchData = useCallback(async () => {
+    try {
+      const { data } = await api.get("/theme-settings");
+      setSidebar(data);
+      setHeaderimg(data.photo.url);
+    } catch (error) {
+      console.error("Error fetching sidebar data:", error);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleShowContactModal = () => setShowContactModal(true);
   const handleCloseContactModal = () => setShowContactModal(false);
@@ -27,8 +36,13 @@ function DesktopSidebar({ closeMenu }) {
       <div className='header_content'>
         <div className='topContent text-center mx-auto my-4'>
           <div className="header-image">
-          <Link to="/" onClick={closeMenu}>
-              <img src={sidebar.photo?.url} width={60} />
+            <Link to="/" onClick={closeMenu}>
+              <img 
+  src={headerimg}
+  width={60} 
+  loading="lazy" 
+/>
+
             </Link>
           </div>
           <div className="site-title-block mt-4">
@@ -49,7 +63,7 @@ function DesktopSidebar({ closeMenu }) {
               <NavLink to="/portfolio" onClick={closeMenu}>Portfolio</NavLink>
             </li>
             <li>
-              <NavLink className={() => ''} to="#" onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}>Contact</NavLink>
+              <NavLink to="#" onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}>Contact</NavLink>
             </li>
           </ul>
         </Nav>

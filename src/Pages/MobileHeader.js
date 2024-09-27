@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { Button, Offcanvas } from 'react-bootstrap';
 import { TfiMenu } from 'react-icons/tfi';
-import ContactModal from './ContactModal';
-import DesktopSidebar from './DesktopSidebar';
 import axios from 'axios';
+
+const ContactModal = lazy(() => import('./ContactModal'));
+const DesktopSidebar = lazy(() => import('./DesktopSidebar'));
 
 function MobileHeader() {
   const [show, setShow] = useState(false);
@@ -11,18 +12,18 @@ function MobileHeader() {
   const [logo, setLogo] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = useCallback(() => setShow(false), []);
+  const handleShow = useCallback(() => setShow(true), []);
   
-  const handleShowContactModal = () => setShowContactModal(true);
-  const handleCloseContactModal = () => setShowContactModal(false);
+  const handleShowContactModal = useCallback(() => setShowContactModal(true), []);
+  const handleCloseContactModal = useCallback(() => setShowContactModal(false), []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://mancuso.ai/wp-json/v1/theme-settings");
-        setLogo(response.data.logo);
-        setPhotoUrl(response.data.photo.url);
+        const { data } = await axios.get("https://mancuso.ai/wp-json/v1/theme-settings");
+        setLogo(data.logo);
+        setPhotoUrl(data.photo.url);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -33,11 +34,11 @@ function MobileHeader() {
   return (
     <div className='MobileHeader'>
       <div className="mobile_header d-flex flex-row-reverse w-100 justify-content-between px-4 align-items-center">
-        <a className="menu-toggle">
-          <TfiMenu className='text-black' onClick={handleShow} />
+        <a className="menu-toggle" onClick={handleShow}>
+          <TfiMenu className='text-black' />
         </a>
         <div>
-          <img src={photoUrl} width={35} alt="description" loading="lazy" />
+          <img src={photoUrl} width={35} loading="lazy" />
           <a href="#" className='site-title-name'>{logo}</a>
         </div>
       </div>
@@ -45,13 +46,15 @@ function MobileHeader() {
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton />
         <Offcanvas.Body>
-          <div className='mobileView'>
+          <Suspense fallback={<div>Loading Sidebar...</div>}>
             <DesktopSidebar closeMenu={handleClose} />
-          </div>
+          </Suspense>
         </Offcanvas.Body>
       </Offcanvas>
 
-      <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
+      <Suspense fallback={<div>Loading Modal...</div>}>
+        <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
+      </Suspense>
     </div>
   );
 }

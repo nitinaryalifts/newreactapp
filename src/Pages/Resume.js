@@ -24,34 +24,82 @@ function Resume() {
     const [testimonials, setTestimonials] = useState({});
     const [loading, setLoading] = useState(true); // Add loading state
 
+
+    const debounce = (func, delay) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func(...args), delay);
+        };
+    };
+
     const setEqualHeight = () => {
         if (sliderRef.current) {
             const slides = sliderRef.current.innerSlider.list.querySelectorAll('.slide_ht');
             let maxHeight = 0;
-
+    
             slides.forEach(slide => {
-                slide.style.height = 'auto';
+                slide.style.height = 'auto'; // Reset height for recalculation
             });
-
-            slides.forEach(slide => {
-                maxHeight = Math.max(maxHeight, slide.offsetHeight);
-            });
-
-            slides.forEach(slide => {
-                slide.style.height = `${maxHeight}px`;
+    
+            // Use requestAnimationFrame for accurate height calculations after render
+            requestAnimationFrame(() => {
+                slides.forEach(slide => {
+                    const height = slide.offsetHeight;
+                    maxHeight = Math.max(maxHeight, height);
+                });
+    
+                slides.forEach(slide => {
+                    slide.style.height = `${maxHeight}px`; // Set the calculated max height
+                });
             });
         }
     };
+    const fetchTestimonials = async (id) => {
+        try {
+            const response = await axios.get(`${APIS}${id}`);
+            setTestimonials(prev => ({ ...prev, [id]: response.data }));
+        } catch (error) {
+            console.error('Error fetching testimonials:', error);
+        }
+    };
 
-    useEffect(() => {
+    const extractTestimonialId = (text) => {
+        const match = text.match(/\[rt-testimonial id="(\d+)" title="[^"]+"\]/);
+        return match ? match[1] : null;
+    };
+
+    const removeShortcodes = (text) => {
+        return text.replace(/\[rt-testimonial id="\d+" title="[^\"]+"\]/g, '');
+    };
+
+    const stripHtmlTags = (text) => {
+        const doc = new DOMParser().parseFromString(text, 'text/html');
+        return doc.body.textContent || "";
+    };
+
+useEffect(() => {
+    setEqualHeight();
+
+    const handleResize = debounce(() => {
         setEqualHeight();
+    }, 200);
 
-        window.addEventListener('resize', setEqualHeight);
+    const adjustHeight = () => {
+        setTimeout(() => {
+            handleResize();
+        }, 100); // Adjust timing as necessary
+    };
 
-        return () => {
-            window.removeEventListener('resize', setEqualHeight);
-        };
-    }, [testimonials]);
+    adjustHeight();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+}, [testimonials]); 
+
+
 
     useEffect(() => {
         const fetchExperiences = async () => {
@@ -81,28 +129,6 @@ function Resume() {
         fetchExperiences();
     }, []);
 
-    const fetchTestimonials = async (id) => {
-        try {
-            const response = await axios.get(`${APIS}${id}`);
-            setTestimonials(prev => ({ ...prev, [id]: response.data }));
-        } catch (error) {
-            console.error('Error fetching testimonials:', error);
-        }
-    };
-
-    const extractTestimonialId = (text) => {
-        const match = text.match(/\[rt-testimonial id="(\d+)" title="[^"]+"\]/);
-        return match ? match[1] : null;
-    };
-
-    const removeShortcodes = (text) => {
-        return text.replace(/\[rt-testimonial id="\d+" title="[^\"]+"\]/g, '');
-    };
-
-    const stripHtmlTags = (text) => {
-        const doc = new DOMParser().parseFromString(text, 'text/html');
-        return doc.body.textContent || "";
-    };
 
     useEffect(() => {
         const fetchCertificates = async () => {
@@ -141,22 +167,6 @@ function Resume() {
         fetchTags();
     }, []);
 
-
-    // useEffect(() => {
-    //     const resizeObserver = new ResizeObserver(() => {
-    //         setEqualHeight();
-    //     });
-
-    //     if (sliderRef.current) {
-    //         resizeObserver.observe(sliderRef.current.innerSlider.list);
-    //     }
-
-    //     return () => {
-    //         if (sliderRef.current) {
-    //             resizeObserver.unobserve(sliderRef.current.innerSlider.list);
-    //         }
-    //     };
-    // }, [testimonials]);
     const sliderSettings = {
         dots: false,
         infinite: false,
@@ -218,7 +228,7 @@ function Resume() {
                                                                                 <Slider key={testimonialId} ref={sliderRef} {...sliderSettings} className="custom-carousel">
                                                                                     {testimonials[testimonialId].map((item) => (
                                                                                         <div key={item.id} className="testimonial-container">
-                                                                                            <div className='slide_ht d-flex flex-column justify-content-between'>
+                                                                                            <div className='slide_ht'>
                                                                                                 <div className="testimonial-content">
                                                                                                     <p>{stripHtmlTags(item.content)}</p>
                                                                                                 </div>

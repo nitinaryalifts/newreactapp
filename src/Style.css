@@ -186,11 +186,22 @@ a {
 .sideTabs a:first-child {
     border-top: 1px solid #f5f5f5;
 }
-
+.slide_ht {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* height: 100% !important; */
+}
+.slider-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
 .sideTabs ul li a {
     font-family: helvetica !important;
     font-size: 14px;
     font-weight: 300;
+    border-right: 3px solid transparent;
     font-style: normal;
     line-height: 1.85em;
     color: #222222;
@@ -1250,7 +1261,7 @@ p.user_pf_date {
     -webkit-border-radius: 6px;
     border: 1px solid #e5e5e5;
     position: relative;
-    overflow: hidden !important;
+    overflow: visible;
     height: 100% !important;
 }
 
