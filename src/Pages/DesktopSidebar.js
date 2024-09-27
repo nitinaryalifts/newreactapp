@@ -63,7 +63,7 @@ function DesktopSidebar({ closeMenu }) {
               <NavLink to="/portfolio" onClick={closeMenu}>Portfolio</NavLink>
             </li>
             <li>
-              <NavLink to="#" onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}>Contact</NavLink>
+              <NavLink className={() => ''} to="#" onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}>Contact</NavLink>
             </li>
           </ul>
         </Nav>

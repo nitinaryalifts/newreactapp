@@ -85,13 +85,6 @@ useEffect(() => {
         setEqualHeight();
     }, 200);
 
-    const adjustHeight = () => {
-        setTimeout(() => {
-            handleResize();
-        }, 100); // Adjust timing as necessary
-    };
-
-    adjustHeight();
     window.addEventListener('resize', handleResize);
 
     return () => {
