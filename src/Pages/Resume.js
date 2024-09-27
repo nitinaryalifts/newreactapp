@@ -29,7 +29,6 @@ function Resume() {
             const slides = sliderRef.current.innerSlider.list.querySelectorAll('.slide_ht');
             let maxHeight = 0;
 
-            // Reset heights before measuring
             slides.forEach(slide => {
                 slide.style.height = 'auto';
             });
@@ -142,6 +141,22 @@ function Resume() {
         fetchTags();
     }, []);
 
+
+    // useEffect(() => {
+    //     const resizeObserver = new ResizeObserver(() => {
+    //         setEqualHeight();
+    //     });
+
+    //     if (sliderRef.current) {
+    //         resizeObserver.observe(sliderRef.current.innerSlider.list);
+    //     }
+
+    //     return () => {
+    //         if (sliderRef.current) {
+    //             resizeObserver.unobserve(sliderRef.current.innerSlider.list);
+    //         }
+    //     };
+    // }, [testimonials]);
     const sliderSettings = {
         dots: false,
         infinite: false,
@@ -157,6 +172,7 @@ function Resume() {
             </div>
         )
     };
+    
 
     return (
         <div className='main_Content'>
@@ -202,7 +218,7 @@ function Resume() {
                                                                                 <Slider key={testimonialId} ref={sliderRef} {...sliderSettings} className="custom-carousel">
                                                                                     {testimonials[testimonialId].map((item) => (
                                                                                         <div key={item.id} className="testimonial-container">
-                                                                                            <div className='slide_ht d-flex flex-column'>
+                                                                                            <div className='slide_ht d-flex flex-column justify-content-between'>
                                                                                                 <div className="testimonial-content">
                                                                                                     <p>{stripHtmlTags(item.content)}</p>
                                                                                                 </div>

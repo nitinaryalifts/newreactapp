@@ -27,8 +27,8 @@ function DesktopSidebar({ closeMenu }) {
       <div className='header_content'>
         <div className='topContent text-center mx-auto my-4'>
           <div className="header-image">
-            <Link to="/" onClick={closeMenu}>
-              <img src="https://mancuso.ai/wp-content/uploads/2024/07/Mancuso-Headshot.png" width={60} alt="description" />
+          <Link to="/" onClick={closeMenu}>
+              <img src={sidebar.photo?.url} width={60} />
             </Link>
           </div>
           <div className="site-title-block mt-4">

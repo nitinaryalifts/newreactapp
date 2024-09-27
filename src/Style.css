@@ -1285,9 +1285,7 @@ ul ul {
     font-style: normal;
     color: #217074;
 }
-/* .exp_item svg.slick-arrow{
-    top: 95% !important;
-} */
+
 .exp_item svg.slick-arrow.slick-next:hover {
     background: #124447;
     color: #fff !important;
@@ -1309,6 +1307,7 @@ ul ul {
     margin: 2px;
     font-size: 18px !important;
     top: 95%;
+    background: #fff;
     z-index: 9;
     right: 28px;
     padding: 3px !important;
@@ -1322,13 +1321,23 @@ ul ul {
     width: 25px !important;
     height: 25px !important;
     font-size: 18px !important;
-    z-index: 9999;
+    z-index: 9;
     top: 95%;
+    background: #fff;
     margin-left: auto;
     right: 60px;
     left: 0;
     /* margin-left: auto; */
     padding: 3px !important;
+}
+
+@media only screen and (max-width: 500px) {
+    .exp_item svg.slick-arrow.slick-prev {
+        top: 100% !important;
+    }
+    .exp_item svg.slick-arrow.slick-next {
+        top: 100% !important;
+    }
 }
 
 .exp_item .slick-disabled:hover {

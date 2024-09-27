@@ -50,7 +50,7 @@ function About() {
                 requestAnimationFrame(() => {
                     setEqualHeight();
                 });
-            }, 100);
+            }, 100); 
         }
 
         window.addEventListener('resize', setEqualHeight);
