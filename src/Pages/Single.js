@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -12,28 +12,28 @@ const Single = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get(API);
-        const data = response.data;
-        setPosts(data);
+  const fetchPosts = useCallback(async () => {
+    try {
+      const response = await axios.get(API);
+      const data = response.data;
+      setPosts(data);
 
-        const singlePost = data.find(post => post.id === parseInt(id));
-        if (singlePost) {
-          setPost(singlePost);
-        } else {
-          console.error('Post not found');
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-        setLoading(false);
+      const singlePost = data.find(post => post.id === parseInt(id));
+      if (singlePost) {
+        setPost(singlePost);
+      } else {
+        console.error('Post not found');
       }
-    };
-
-    fetchPosts();
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
 
   const handlePrevious = () => {
     const currentIndex = posts.findIndex(post => post.id === parseInt(id));
@@ -104,10 +104,10 @@ const Single = () => {
             <p dangerouslySetInnerHTML={{ __html: post.post_meta.fw_options.portfolio_type.standard.pf_description }}></p>
             <h3>Share</h3>
             <div className='social_icons_2'>
-              <div><a href='https://www.facebook.com/share_channel/?link=https%3A%2F%2Fmancuso.ai%2Fproject%2Fplatform-consolidation%2F&app_id=966242223397117&source_surface=external_reshare&display&hashtag' target="_blank"><i className="fa-brands fa-facebook-f"></i></a></div>
-              <div><a href='https://x.com/intent/post?url=https%3A%2F%2Fmancuso.ai%2Fproject%2Fplatform-consolidation%2F' target="_blank"><i className="fa-brands fa-twitter"></i></a></div>
-              <div><a href='https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%3Fmini%3Dtrue%26url%3Dhttps%3A%2F%2Fmancuso.ai%2Fproject%2Fplatform-consolidation%2F' target="_blank"><i className="fa-brands fa-linkedin-in"></i></a></div>
-              <div><a href='https://digg.com/' target="_blank"><i className="fa-brands fa-digg"></i></a></div>
+              <div><a href={`https://www.facebook.com/share_channel/?link=https%3A%2F%2Fmancuso.ai%2Fproject%2F${post.slug}&app_id=966242223397117&source_surface=external_reshare&display&hashtag`} target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-facebook-f"></i></a></div>
+              <div><a href={`https://x.com/intent/post?url=https%3A%2F%2Fmancuso.ai%2Fproject%2F${post.slug}`} target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-twitter"></i></a></div>
+              <div><a href={`https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%3Fmini%3Dtrue%26url%3Dhttps%3A%2F%2Fmancuso.ai%2Fproject%2F${post.slug}`} target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-linkedin-in"></i></a></div>
+              <div><a href='https://digg.com/' target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-digg"></i></a></div>
             </div>
           </div>
           <div className='col-lg-4 col-md-12 order-lg-2 order-md-1'>

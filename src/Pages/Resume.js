@@ -42,7 +42,6 @@ function Resume() {
                 slide.style.height = 'auto'; // Reset height for recalculation
             });
     
-            // Use requestAnimationFrame for accurate height calculations after render
             requestAnimationFrame(() => {
                 slides.forEach(slide => {
                     const height = slide.offsetHeight;
@@ -210,7 +209,7 @@ useEffect(() => {
                                                                     </span>
                                                                     <div className='exp_item ps-4 pt-2'>
                                                                         {timelineItem.logo && timelineItem.logo.url && (
-                                                                            <img src={timelineItem.logo.url} className="companyN" alt='logoimg' height={50} />
+                                                                            <img src={timelineItem.logo.url} className="companyN" alt='logoimg' height={50} loading="lazy" />
                                                                         )}
                                                                         <p dangerouslySetInnerHTML={{ __html: removeShortcodes(timelineItem.text) }}></p>
 
@@ -231,6 +230,7 @@ useEffect(() => {
                                                                                                             src={item.featured_image}
                                                                                                             className="d-block"
                                                                                                             alt={item.title}
+                                                                                                            loading="lazy"
                                                                                                         />
                                                                                                     </div>
                                                                                                     <div className="testimonial-info text-left">
@@ -254,7 +254,7 @@ useEffect(() => {
                                             </div>
                                         ))
                                     ) : (
-                                        <p>Loading.....</p>
+                                        <p>.</p>
                                     )}
                                 </div>
                             </Col>
@@ -265,7 +265,7 @@ useEffect(() => {
                                         <a href={education[0].settings.image.url} target="_blank" rel="noopener noreferrer">
                                             <div className='coll_inner d-flex align-items-stretch'>
                                                 <div className='coll_logo align-content-center p-4'>
-                                                    <img src={education[0].settings.logo.url} alt={education[0].settings.title} className="img-fluid" />
+                                                    <img src={education[0].settings.logo.url} alt={education[0].settings.title} className="img-fluid" loading="lazy" />
                                                 </div>
                                                 <div className='collegeContent p-4'>
                                                     <div className="certi-content">
@@ -290,7 +290,7 @@ useEffect(() => {
                                                 <a href={certificate.settings.image.url} target="_blank" rel="noopener noreferrer">
                                                     <div className='coll_inner d-flex align-items-stretch'>
                                                         <div className='coll_logo align-content-center p-4'>
-                                                            <img src={certificate.settings.logo.url} alt={certificate.name} className="img-fluid" />
+                                                            <img src={certificate.settings.logo.url} alt={certificate.name} className="img-fluid" loading="lazy" />
                                                         </div>
                                                         <div className='collegeContent p-4'>
                                                             <div className="certi-content">
