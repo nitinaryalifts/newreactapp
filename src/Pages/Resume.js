@@ -39,7 +39,7 @@ function Resume() {
             let maxHeight = 0;
     
             slides.forEach(slide => {
-                slide.style.height = 'auto'; // Reset height for recalculation
+                slide.style.height = 'auto';
             });
     
             requestAnimationFrame(() => {
@@ -49,7 +49,7 @@ function Resume() {
                 });
     
                 slides.forEach(slide => {
-                    slide.style.height = `${maxHeight}px`; // Set the calculated max height
+                    slide.style.height = `${maxHeight}px`;
                 });
             });
         }

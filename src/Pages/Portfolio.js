@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Style.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -39,7 +39,7 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
         ) : (
           filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
-              <div className="col-md-3 mb-0" key={post.id} style={{ padding: '8px' }}>
+              <div className="col-md-3 mb-0" key={post.id} style={{padding:'8px'}}>
                 <Link
                   to={`/portfolio/${post.id}`}
                   style={{ textDecoration: 'none' }}
@@ -49,13 +49,12 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
                     <img
                       src={post.featured_image}
                       alt={post.title}
-                      loading="lazy" // Lazy load images
-                      className="portfolio-image"
+                      style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
                     />
-                    <div className='overlay-col' style={{
+                      <div className='overlay-col' style={{
                       position: 'absolute',
-                      width: '100%',
-                      height: '100%',
+                      width:'100%',
+                      height:'100%',
                       top: '0',
                       left: '0',
                       backgroundColor: '#217074',
@@ -68,7 +67,7 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
                       position: 'absolute',
                       margin: '10px',
                       padding: '10px',
-                      width: '78%',
+                      width:'78%',
                       top: '0',
                       left: '0',
                       color: '#fff',
@@ -99,6 +98,7 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
                     }}>
                       <span><i className="fa-regular fa-file-lines"></i></span>
                     </div>
+
                   </div>
                 </Link>
               </div>

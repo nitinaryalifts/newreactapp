@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, Suspense } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../Style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,17 +9,16 @@ import Logosslide from './LogoSlider';
 import { Col, Row } from 'react-bootstrap';
 import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
-import debounce from 'lodash.debounce';
-const ContactModal = React.lazy(() => import('./ContactModal'));
+import ContactModal from './ContactModal';
 
 function About() {
-    const [theme, setTheme] = useState({});
-    const [bigavtar, setBigAvtar] = useState("");
+    const [theme, setTheme] = useState("");
+    const [bigavtar, setBigAvtar] = useState([]);
     const [whatwedo, setWhatwedo] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showContactModal, setShowContactModal] = useState(false);
-    const sliderRef = useRef(null);
+    const sliderRef = useRef([]);
 
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
@@ -28,6 +27,7 @@ function About() {
         if (sliderRef.current) {
             const slidesContainer = sliderRef.current.innerSlider.list;
             const slides = slidesContainer.querySelectorAll('.Slider_Item');
+
             let maxHeight = 0;
 
             slides.forEach(slide => {
@@ -44,47 +44,58 @@ function About() {
         }
     };
 
-    const handleResize = useCallback(debounce(() => {
-        setEqualHeight();
-    }, 200), []);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [mainSection, services, testimonials] = await Promise.all([
-                    axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section"),
-                    axios.get("https://mancuso.ai/mancusov2/wp-json/v1/services"),
-                    axios.get("https://mancuso.ai/mancusov2/wp-json/v1/home_testimonial")
-                ]);
-
-                setTheme(mainSection.data[0].settings);
-                setBigAvtar(mainSection.data[0].settings.image.url);
-                setWhatwedo(services.data);
-                setTestimonials(testimonials.data[0].settings.testimonials);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching data", error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [handleResize]);
-
     useEffect(() => {
         if (testimonials.length > 0) {
-            setEqualHeight();
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    setEqualHeight();
+                });
+            }, 100); 
         }
+
+        window.addEventListener('resize', setEqualHeight);
+
+        return () => {
+            window.removeEventListener('resize', setEqualHeight);
+        };
     }, [testimonials]);
+
+    useEffect(() => {
+        axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section")
+            .then((resp) => {
+                setTheme(resp.data[0].settings);
+                setBigAvtar(resp.data[0].settings.image.url);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching main section data", error);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get("https://mancuso.ai/mancusov2/wp-json/v1/services")
+            .then((resp) => {
+                setWhatwedo(resp.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching services", error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get("https://mancuso.ai/mancusov2/wp-json/v1/home_testimonial")
+            .then((resp) => {
+                setTestimonials(resp.data[0].settings.testimonials);
+            })
+            .catch((error) => {
+                console.error("Error fetching testimonials", error);
+            });
+    }, []);
 
     var settings = {
         dots: false,
-        arrows: true,
+        arrow: true,
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 1,
@@ -96,7 +107,7 @@ function About() {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    arrows: true,
+                    arrow: true,
                     infinite: true,
                     dots: false
                 }
@@ -134,7 +145,8 @@ function About() {
                                                        target=""
                                                        className="custom_btn custom-secondary"
                                                        onClick={(e) => { e.preventDefault(); handleShowContactModal(); }}
-                                                       dangerouslySetInnerHTML={{ __html: theme.buttons[1].button_title }}></a>
+                                                       dangerouslySetInnerHTML={{ __html: theme.buttons[1].button_title }}>
+                                                    </a>
                                                 </>
                                             )}
                                         </div>
@@ -146,7 +158,7 @@ function About() {
                         <section className='what_iDo text-start bg-white section_padding py-5'>
                             <h3 className='heading'>What I Do</h3>
                             <Row>
-                                {whatwedo.map((item, index) => (
+                                {whatwedo && whatwedo.map((item, index) => (
                                     <Col md={6} key={index}>
                                         <div className='info_box d-flex gap-4 py-3 pe-3'>
                                             <div className='leftIcon'>
@@ -186,10 +198,9 @@ function About() {
                                 </Slider>
                             </div>
                         </section>
+
                     </div>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
-                    </Suspense>
+                    <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
                 </>
             )}
         </div>
