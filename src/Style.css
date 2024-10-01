@@ -1268,9 +1268,9 @@ p.user_pf_date {
 ul ul {
     list-style-type: disc;
 }
-/* .single-post-desc ul ul{
+.single-post-desc ul ul{
     list-style-type: circle;
-} */
+}
 
 .testimonial-image {
     position: relative;
