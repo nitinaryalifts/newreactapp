@@ -23,7 +23,6 @@ function About() {
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
 
-    // Function to set equal height for all slider items
     const setEqualHeight = useCallback(() => {
         if (sliderRef.current) {
             const slidesContainer = sliderRef.current.innerSlider.list;
@@ -32,20 +31,19 @@ function About() {
             let maxHeight = 0;
 
             slides.forEach(slide => {
-                slide.style.height = 'auto';  // Reset height first
+                slide.style.height = 'auto';
             });
 
             slides.forEach(slide => {
-                maxHeight = Math.max(maxHeight, slide.offsetHeight);  // Calculate max height
+                maxHeight = Math.max(maxHeight, slide.offsetHeight);
             });
 
             slides.forEach(slide => {
-                slide.style.height = `${maxHeight}px`;  // Apply max height
+                slide.style.height = `${maxHeight}px`;
             });
         }
     }, []);
 
-    // Debounce the resize event handler to limit the number of times the function is called
     const debounce = (func, delay) => {
         let timeout;
         return function () {
@@ -56,15 +54,14 @@ function About() {
         };
     };
 
-    // Resize event listener to adjust height dynamically
     useEffect(() => {
         if (testimonials.length > 0) {
             setTimeout(() => {
-                setEqualHeight();  // Set height after DOM update
+                setEqualHeight();
             }, 100); 
         }
 
-        const handleResize = debounce(setEqualHeight, 150);  // Throttle resize event
+        const handleResize = debounce(setEqualHeight, 150)
 
         window.addEventListener('resize', handleResize);
 
@@ -192,7 +189,7 @@ function About() {
 
                         <Logosslide />
 
-                        <section className='TestimonialSlider bg-white section_padding text-start py-5'>
+                        <section className='TestimonialSlider bg-white section_padding text-start pb-5 py-5'>
                             <h3 className='heading'>Testimonials</h3>
                             <div className='SliderItems pb-4 pb-sm-5'>
                                 <Slider {...settings} ref={sliderRef}>

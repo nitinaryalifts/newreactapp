@@ -400,11 +400,12 @@ p {
     height: 70px;
 }
 
-.desg {
+a.desg {
     font-size: 11px;
     font-family: poppins !important;
     font-weight: 400;
     color: #217074;
+    white-space: nowrap;
 }
 
 .testimonial_credits img {
