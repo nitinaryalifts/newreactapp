@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import '../Style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { FaCompass, FaDiagramProject, FaLightbulb, FaPaperPlane } from "react-icons/fa6";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import Logosslide from './LogoSlider';
-import { Col, Row } from 'react-bootstrap';
+import { FaCompass, FaDiagramProject, FaLightbulb, FaPaperPlane } from "react-icons/fa6";
+import { Row, Col } from 'react-bootstrap';
 import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import ContactModal from './ContactModal';
+import Logosslide from './LogoSlider';
 
 function About() {
     const [theme, setTheme] = useState("");
@@ -18,12 +18,13 @@ function About() {
     const [testimonials, setTestimonials] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showContactModal, setShowContactModal] = useState(false);
-    const sliderRef = useRef([]);
+    const sliderRef = useRef(null);
 
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
 
-    const setEqualHeight = () => {
+    // Function to set equal height for all slider items
+    const setEqualHeight = useCallback(() => {
         if (sliderRef.current) {
             const slidesContainer = sliderRef.current.innerSlider.list;
             const slides = slidesContainer.querySelectorAll('.Slider_Item');
@@ -31,35 +32,48 @@ function About() {
             let maxHeight = 0;
 
             slides.forEach(slide => {
-                slide.style.height = 'auto';
+                slide.style.height = 'auto';  // Reset height first
             });
 
             slides.forEach(slide => {
-                maxHeight = Math.max(maxHeight, slide.offsetHeight);
+                maxHeight = Math.max(maxHeight, slide.offsetHeight);  // Calculate max height
             });
 
             slides.forEach(slide => {
-                slide.style.height = `${maxHeight}px`;
+                slide.style.height = `${maxHeight}px`;  // Apply max height
             });
         }
+    }, []);
+
+    // Debounce the resize event handler to limit the number of times the function is called
+    const debounce = (func, delay) => {
+        let timeout;
+        return function () {
+            const context = this;
+            const args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), delay);
+        };
     };
 
+    // Resize event listener to adjust height dynamically
     useEffect(() => {
         if (testimonials.length > 0) {
             setTimeout(() => {
-                requestAnimationFrame(() => {
-                    setEqualHeight();
-                });
+                setEqualHeight();  // Set height after DOM update
             }, 100); 
         }
 
-        window.addEventListener('resize', setEqualHeight);
+        const handleResize = debounce(setEqualHeight, 150);  // Throttle resize event
+
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener('resize', setEqualHeight);
+            window.removeEventListener('resize', handleResize);
         };
-    }, [testimonials]);
+    }, [testimonials, setEqualHeight]);
 
+    // Fetch data for the page
     useEffect(() => {
         axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section")
             .then((resp) => {
@@ -93,7 +107,7 @@ function About() {
             });
     }, []);
 
-    var settings = {
+    const settings = {
         dots: false,
         arrow: true,
         infinite: true,
@@ -127,8 +141,7 @@ function About() {
                         <section className='aboutme_section'>
                             <Row>
                                 <Col md={6}>
-                                    <div className='leftimgbox' style={{ backgroundImage: `url(${bigavtar})` }}>
-                                    </div>
+                                    <div className='leftimgbox' style={{ backgroundImage: `url(${bigavtar})` }}></div>
                                 </Col>
                                 <Col md={6}>
                                     <div className='rightContetnbox text-start'>
