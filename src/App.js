@@ -9,7 +9,6 @@ import Single from './Pages/Single';
 import DesktopSidebar from './Pages/DesktopSidebar';
 import MobileHeader from './Pages/MobileHeader';
 import Error404 from './Pages/Error404';
-import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   return (
