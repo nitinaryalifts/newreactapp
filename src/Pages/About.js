@@ -10,8 +10,12 @@ import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import ContactModal from './ContactModal';
 import Logosslide from './LogoSlider';
+import { Helmet } from 'react-helmet';
 
 function About() {
+    const [metaTitle, setMetaTitle] = useState();
+    const [metaDescription, setMetaDescription] = useState();
+    const [error, setError] = useState(null);
     const [theme, setTheme] = useState("");
     const [bigavtar, setBigAvtar] = useState([]);
     const [whatwedo, setWhatwedo] = useState([]);
@@ -22,6 +26,34 @@ function About() {
 
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
+
+    useEffect(() => {
+        const fetchMetaTags = async () => {
+          try {
+            const response = await fetch('https://mancuso.ai/wp-json/wp/v2/pages');
+            
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+    
+            if (data && data.length > 0) {
+              setMetaTitle(data[0].yoast_head_json.title || 'Default Title');
+              setMetaDescription(data[0].yoast_head_json.description || 'Default Description');
+              setError(null);
+            } else {
+              throw new Error('No data found');
+            }
+          } catch (error) {
+            console.error("Error fetching meta tags:", error);
+            setError("Failed to fetch meta tags. Please try again later.");
+          }
+        };
+    
+        fetchMetaTags();
+      }, []); 
+    
 
     const setEqualHeight = useCallback(() => {
         if (sliderRef.current) {
@@ -134,6 +166,11 @@ function About() {
                 </div>
             ) : (
                 <>
+                      <Helmet>
+                        <title>{metaTitle}</title>
+                        <meta name="description" content={metaDescription} />
+                      </Helmet>
+
                     <div className='about_sections'>
                         <section className='aboutme_section'>
                             <Row>
