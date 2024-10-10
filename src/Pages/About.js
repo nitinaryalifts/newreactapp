@@ -29,31 +29,65 @@ function About() {
 
     useEffect(() => {
         const fetchMetaTags = async () => {
-          try {
-            const response = await fetch('https://mancuso.ai/wp-json/wp/v2/pages');
-            
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+            try {
+                const response = await fetch('https://mancuso.ai/mancusov2/wp-json/wp/v2/pages');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    setMetaTitle(data[0].yoast_head_json.title);
+                    setMetaDescription(data[0].yoast_head_json.og_description);
+                    setError(null);
+                } else {
+                    throw new Error('No data found');
+                }
+            } catch (error) {
+                console.error("Error fetching meta tags:", error);
+                setError("Failed to fetch meta tags. Please try again later.");
             }
-    
-            const data = await response.json();
-    
-            if (data && data.length > 0) {
-              setMetaTitle(data[0].yoast_head_json.title || 'Default Title');
-              setMetaDescription(data[0].yoast_head_json.description || 'Default Description');
-              setError(null);
-            } else {
-              throw new Error('No data found');
-            }
-          } catch (error) {
-            console.error("Error fetching meta tags:", error);
-            setError("Failed to fetch meta tags. Please try again later.");
-          }
         };
-    
+
         fetchMetaTags();
-      }, []); 
+    }, []);
+
     
+    useEffect(() => {
+        const fetchThemeSettings = async () => {
+            try {
+                const response = await axios.get('https://mancuso.ai/wp-json/v1/theme-settings');
+                const data = response.data;
+
+                console.log("API Response:", data);
+
+                if (data && data.photo && data.photo.url) {
+                    const faviconUrl = data.photo.url;
+
+                    let linkElement = document.querySelector("link[rel*='icon']");
+                    if (linkElement) {
+                        linkElement.href = faviconUrl;
+                    } else {
+                        const newLinkElement = document.createElement("link");
+                        newLinkElement.rel = "icon";
+                        newLinkElement.href = faviconUrl;
+                        document.head.appendChild(newLinkElement);
+                    }
+
+                    setTheme(data);
+                    console.log("successfully fetched");
+                }
+
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching theme settings:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchThemeSettings();
+    }, []);
+
+
 
     const setEqualHeight = useCallback(() => {
         if (sliderRef.current) {
@@ -166,11 +200,10 @@ function About() {
                 </div>
             ) : (
                 <>
-                      <Helmet>
-                        <title>{metaTitle}</title>
-                        <meta name="description" content={metaDescription} />
-                      </Helmet>
-
+                     <Helmet>
+                       <title>{metaTitle}</title>
+                       <meta name="description" content={metaDescription} />
+                    </Helmet>
                     <div className='about_sections'>
                         <section className='aboutme_section'>
                             <Row>
