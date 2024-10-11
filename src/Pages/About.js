@@ -206,6 +206,7 @@ function About() {
                     </Helmet>
                     <div className='about_sections'>
                         <section className='aboutme_section'>
+                            <h3>{metaTitle}</h3>
                             <Row>
                                 <Col md={6}>
                                     <div className='leftimgbox' style={{ backgroundImage: `url(${bigavtar})` }}></div>
