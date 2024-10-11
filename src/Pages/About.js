@@ -52,40 +52,40 @@ function About() {
     }, []);
 
     
-    useEffect(() => {
-        const fetchThemeSettings = async () => {
-            try {
-                const response = await axios.get('https://mancuso.ai/wp-json/v1/theme-settings');
-                const data = response.data;
+    // useEffect(() => {
+    //     const fetchThemeSettings = async () => {
+    //         try {
+    //             const response = await axios.get('https://mancuso.ai/wp-json/v1/theme-settings');
+    //             const data = response.data;
 
-                console.log("API Response:", data);
+    //             console.log("API Response:", data);
 
-                if (data && data.photo && data.photo.url) {
-                    const faviconUrl = data.photo.url;
+    //             if (data && data.photo && data.photo.url) {
+    //                 const faviconUrl = data.photo.url;
 
-                    let linkElement = document.querySelector("link[rel*='icon']");
-                    if (linkElement) {
-                        linkElement.href = faviconUrl;
-                    } else {
-                        const newLinkElement = document.createElement("link");
-                        newLinkElement.rel = "icon";
-                        newLinkElement.href = faviconUrl;
-                        document.head.appendChild(newLinkElement);
-                    }
+    //                 let linkElement = document.querySelector("link[rel*='icon']");
+    //                 if (linkElement) {
+    //                     linkElement.href = faviconUrl;
+    //                 } else {
+    //                     const newLinkElement = document.createElement("link");
+    //                     newLinkElement.rel = "icon";
+    //                     newLinkElement.href = faviconUrl;
+    //                     document.head.appendChild(newLinkElement);
+    //                 }
 
-                    setTheme(data);
-                    console.log("successfully fetched");
-                }
+    //                 setTheme(data);
+    //                 console.log("successfully fetched");
+    //             }
 
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching theme settings:", error);
-                setLoading(false);
-            }
-        };
+    //             setLoading(false);
+    //         } catch (error) {
+    //             console.error("Error fetching theme settings:", error);
+    //             setLoading(false);
+    //         }
+    //     };
 
-        fetchThemeSettings();
-    }, []);
+    //     fetchThemeSettings();
+    // }, []);
 
 
 
