@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { Helmet } from 'react-helmet';
 
 const API = "https://mancuso.ai/wp-json/v1/portfolios";
 
@@ -11,6 +12,8 @@ const Single = () => {
   const [post, setPost] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -22,6 +25,12 @@ const Single = () => {
         const singlePost = data.find(post => post.id === parseInt(id));
         if (singlePost) {
           setPost(singlePost);
+
+          setMetaTitle(singlePost.title);
+          const pfDescription = singlePost.post_meta?.fw_options?.portfolio_type?.standard?.pf_description;
+
+          const cleanDescription = pfDescription.replace(/<[^>]+>/g, '');
+          setMetaDescription(cleanDescription);
         } else {
           console.error('Post not found');
         }
@@ -73,6 +82,12 @@ const Single = () => {
   const hasNext = currentIndex < posts.length - 1;
 
   return (
+    <>
+    <Helmet>
+      <title>{metaTitle}</title>
+      <meta name="description" content={metaDescription} />
+   </Helmet>
+
     <div className='main_Content single-portfolio'>
       <div className='row mt-3 mb-1'>
         <div className='col-md-12 portfolio-top-nav'>
@@ -116,6 +131,7 @@ const Single = () => {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

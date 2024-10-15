@@ -120,6 +120,42 @@ function Portfolio() {
   const [filterOptions, setFilterOptions] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [loading, setLoading] = useState(true); // Add loading state
+  const [metaTitle, setMetaTitle] = useState();
+  const [metaDescription, setMetaDescription] = useState();
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMetaTags = async () => {
+        try {
+            const response = await fetch('https://mancuso.ai/mancusov2/wp-json/wp/v2/pages');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data && data.length > 0) {
+                setMetaTitle(data[0].yoast_head_json.title);
+
+                const graphArray = data[0].yoast_head_json.schema["@graph"];
+                const personOrgItem = graphArray.find(
+                    (item) => item["@type"].includes("Person") || item["@type"].includes("Organization")
+                );
+
+                const personOrgDescription = personOrgItem?.description || '';
+
+                setMetaDescription(personOrgDescription);
+                setError(null);
+            } else {
+                throw new Error('No data found');
+            }
+        } catch (error) {
+            console.error("Error fetching meta tags:", error);
+            setError("Failed to fetch meta tags. Please try again later.");
+        }
+    };
+
+    fetchMetaTags();
+}, []);
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -148,6 +184,10 @@ function Portfolio() {
 
   return (
     <>
+    <Helmet>
+       <title>{metaTitle}</title>
+       <meta name="description" content={metaDescription} />
+    </Helmet>
     <div className='main_Content'>
       <section className={`portfolio_section section_padding py-5 bg-white ${loading ? 'hidden' : ''}`}>
         <h2 className='section-title text-start portfolio-title pt-4'>Portfolio</h2>

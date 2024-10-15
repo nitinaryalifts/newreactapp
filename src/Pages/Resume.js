@@ -8,6 +8,8 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import '../Style.css';
 import { ClipLoader } from 'react-spinners';
 import { Row, Col } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
+
 
 // API Endpoints
 const API = "https://mancuso.ai/mancusov2/wp-json/v1/timeline";
@@ -16,6 +18,9 @@ const APIT = "https://mancuso.ai/mancusov2/wp-json/v1/get_tags";
 const APIS = "https://mancuso.ai/mancusov2/wp-json/v1/get_testimonial_byid/";
 
 function Resume() {
+    const [metaTitle, setMetaTitle] = useState();
+    const [metaDescription, setMetaDescription] = useState();
+    const [error, setError] = useState(null);
     const sliderRef = useRef(null);
     const [experiences, setExperiences] = useState([]);
     const [certificates, setCertificates] = useState([]);
@@ -54,6 +59,37 @@ function Resume() {
             });
         }
     };
+    useEffect(() => {
+        const fetchMetaTags = async () => {
+            try {
+                const response = await fetch('https://mancuso.ai/mancusov2/wp-json/wp/v2/pages');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    setMetaTitle(data[0].yoast_head_json.title);
+
+                    const graphArray = data[0].yoast_head_json.schema["@graph"];
+                    const personOrgItem = graphArray.find(
+                        (item) => item["@type"].includes("Person") || item["@type"].includes("Organization")
+                    );
+
+                    const personOrgDescription = personOrgItem?.description || '';
+    
+                    setMetaDescription(personOrgDescription);
+                    setError(null);
+                } else {
+                    throw new Error('No data found');
+                }
+            } catch (error) {
+                console.error("Error fetching meta tags:", error);
+                setError("Failed to fetch meta tags. Please try again later.");
+            }
+        };
+
+        fetchMetaTags();
+    }, []);
     const fetchTestimonials = async (id) => {
         try {
             const response = await axios.get(`${APIS}${id}`);
@@ -185,6 +221,10 @@ useEffect(() => {
                 </div>
             ) : (
                 <>
+                    <Helmet>
+                       <title>{metaTitle}</title>
+                       <meta name="description" content={metaDescription} />
+                    </Helmet>
                     <div className='resume_section section_padding py-5 bg-white'>
                         <h2 className='section-title text-start pt-4'>Resume</h2>
                         <h5 className="section-description text-end">15+ Years of Experience</h5>

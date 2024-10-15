@@ -178,6 +178,7 @@ function About() {
                        <title>{metaTitle}</title>
                        <meta name="description" content={metaDescription} />
                     </Helmet>
+                    
                     <div className='about_sections'>
                         <section className='aboutme_section'>
                             <Row>
