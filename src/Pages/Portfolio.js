@@ -3,10 +3,12 @@ import '../Style.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners'; // Import the spinner component
+import { Helmet } from 'react-helmet';
 
 const API = "https://mancuso.ai/wp-json/v1/portfolios";
 
 function App({ loading, filterOptions, activeCategory, setActiveCategory, posts, filteredPosts, setFilteredPosts }) {
+
   const filterPosts = (category) => {
     setActiveCategory(category);
     if (category === 'all') {
@@ -78,7 +80,7 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
                       opacity: '0',
                       transition: 'opacity 0.3s ease',
                     }}>
-                      <p>{post.title}</p>
+                      <p title="" >{post.title}</p>
                     </div>
 
                     <div className='overlay-text-3' style={{
@@ -145,13 +147,14 @@ function Portfolio() {
   }, []);
 
   return (
+    <>
     <div className='main_Content'>
       <section className={`portfolio_section section_padding py-5 bg-white ${loading ? 'hidden' : ''}`}>
         <h2 className='section-title text-start portfolio-title pt-4'>Portfolio</h2>
         <h5 className="section-description text-end">My Works</h5>
       </section>
       <section className='portfolio_content bg-white'>
-        <App 
+        <App
           loading={loading}
           filterOptions={filterOptions}
           activeCategory={activeCategory}
@@ -162,6 +165,7 @@ function Portfolio() {
         />
       </section>
     </div>
+    </>
   );
 }
 

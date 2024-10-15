@@ -17,8 +17,8 @@ function About() {
     const [metaDescription, setMetaDescription] = useState();
     const [error, setError] = useState(null);
     const [theme, setTheme] = useState("");
-    const [bigavtar, setBigAvtar] = useState([]);
-    const [whatwedo, setWhatwedo] = useState([]);
+    const [bigAvatar, setBigAvatar] = useState([]);
+    const [whatWeDo, setWhatWeDo] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showContactModal, setShowContactModal] = useState(false);
@@ -37,7 +37,15 @@ function About() {
                 const data = await response.json();
                 if (data && data.length > 0) {
                     setMetaTitle(data[0].yoast_head_json.title);
-                    setMetaDescription(data[0].yoast_head_json.og_description);
+
+                    const graphArray = data[0].yoast_head_json.schema["@graph"];
+                    const personOrgItem = graphArray.find(
+                        (item) => item["@type"].includes("Person") || item["@type"].includes("Organization")
+                    );
+
+                    const personOrgDescription = personOrgItem?.description || '';
+    
+                    setMetaDescription(personOrgDescription);
                     setError(null);
                 } else {
                     throw new Error('No data found');
@@ -50,44 +58,6 @@ function About() {
 
         fetchMetaTags();
     }, []);
-
-    
-    // useEffect(() => {
-    //     const fetchThemeSettings = async () => {
-    //         try {
-    //             const response = await axios.get('https://mancuso.ai/wp-json/v1/theme-settings');
-    //             const data = response.data;
-
-    //             console.log("API Response:", data);
-
-    //             if (data && data.photo && data.photo.url) {
-    //                 const faviconUrl = data.photo.url;
-
-    //                 let linkElement = document.querySelector("link[rel*='icon']");
-    //                 if (linkElement) {
-    //                     linkElement.href = faviconUrl;
-    //                 } else {
-    //                     const newLinkElement = document.createElement("link");
-    //                     newLinkElement.rel = "icon";
-    //                     newLinkElement.href = faviconUrl;
-    //                     document.head.appendChild(newLinkElement);
-    //                 }
-
-    //                 setTheme(data);
-    //                 console.log("successfully fetched");
-    //             }
-
-    //             setLoading(false);
-    //         } catch (error) {
-    //             console.error("Error fetching theme settings:", error);
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     fetchThemeSettings();
-    // }, []);
-
-
 
     const setEqualHeight = useCallback(() => {
         if (sliderRef.current) {
@@ -124,10 +94,14 @@ function About() {
         if (testimonials.length > 0) {
             setTimeout(() => {
                 setEqualHeight();
-            }, 100); 
+            }, 500);
         }
 
-        const handleResize = debounce(setEqualHeight, 150)
+        const handleResize = debounce(() => {
+            setTimeout(() => {
+                setEqualHeight();
+            }, 500);
+        }, 150);
 
         window.addEventListener('resize', handleResize);
 
@@ -141,7 +115,7 @@ function About() {
         axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section")
             .then((resp) => {
                 setTheme(resp.data[0].settings);
-                setBigAvtar(resp.data[0].settings.image.url);
+                setBigAvatar(resp.data[0].settings.image.url);
                 setLoading(false);
             })
             .catch((error) => {
@@ -153,7 +127,7 @@ function About() {
     useEffect(() => {
         axios.get("https://mancuso.ai/mancusov2/wp-json/v1/services")
             .then((resp) => {
-                setWhatwedo(resp.data);
+                setWhatWeDo(resp.data);
             })
             .catch((error) => {
                 console.error("Error fetching services", error);
@@ -200,7 +174,7 @@ function About() {
                 </div>
             ) : (
                 <>
-                     <Helmet>
+                    <Helmet>
                        <title>{metaTitle}</title>
                        <meta name="description" content={metaDescription} />
                     </Helmet>
@@ -208,7 +182,7 @@ function About() {
                         <section className='aboutme_section'>
                             <Row>
                                 <Col md={6}>
-                                    <div className='leftimgbox' style={{ backgroundImage: `url(${bigavtar})` }}></div>
+                                    <div className='leftimgbox' style={{ backgroundImage: `url(${bigAvatar})` }}></div>
                                 </Col>
                                 <Col md={6}>
                                     <div className='rightContetnbox text-start'>
@@ -238,7 +212,7 @@ function About() {
                         <section className='what_iDo text-start bg-white section_padding py-5'>
                             <h3 className='heading'>What I Do</h3>
                             <Row>
-                                {whatwedo && whatwedo.map((item, index) => (
+                                {whatWeDo && whatWeDo.map((item, index) => (
                                     <Col md={6} key={index}>
                                         <div className='info_box d-flex gap-4 py-3 pe-3'>
                                             <div className='leftIcon'>
@@ -279,8 +253,8 @@ function About() {
                             </div>
                         </section>
 
+                        <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
                     </div>
-                    <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
                 </>
             )}
         </div>
