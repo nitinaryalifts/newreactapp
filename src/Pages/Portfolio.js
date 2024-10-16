@@ -44,6 +44,7 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
               <div className="col-md-3 mb-0" key={post.id} style={{padding:'8px'}}>
                 <Link
                   to={`/portfolio/${post.id}`}
+                  state={{ post: post }}
                   style={{ textDecoration: 'none' }}
                   className='portfolio_card'
                 >
