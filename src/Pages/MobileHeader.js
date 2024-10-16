@@ -38,7 +38,7 @@ function MobileHeader() {
           <TfiMenu className='text-black' />
         </a>
         <div>
-          <img src={photoUrl} width={35} loading="lazy" />
+          <img src={photoUrl} width={35} height="auto" loading="lazy" alt="image" />
           <a href="#" className='site-title-name'>{logo}</a>
         </div>
       </div>

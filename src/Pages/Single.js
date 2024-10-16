@@ -30,7 +30,10 @@ const Single = () => {
           const pfDescription = singlePost.post_meta?.fw_options?.portfolio_type?.standard?.pf_description;
 
           const cleanDescription = pfDescription.replace(/<[^>]+>/g, '');
-          setMetaDescription(cleanDescription);
+          const limitedDescription = cleanDescription.length > 170 
+              ? `${cleanDescription.substring(0, 167)}...` 
+              : cleanDescription;
+          setMetaDescription(limitedDescription);          
         } else {
           console.error('Post not found');
         }
@@ -81,11 +84,14 @@ const Single = () => {
   const hasPrevious = currentIndex > 0;
   const hasNext = currentIndex < posts.length - 1;
 
+  const canonicalURL = window.location.href;
+
   return (
     <>
     <Helmet>
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} />
+      <link rel="canonical" href={canonicalURL} />
    </Helmet>
 
     <div className='main_Content single-portfolio'>

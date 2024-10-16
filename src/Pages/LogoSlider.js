@@ -61,7 +61,11 @@ const LogoSlider = () => {
             <img className='slideimg'
               src={client.image.url} 
               alt={client.name} 
+              title={client.name}
+              height="auto"
+              width="auto"
               style={{objectFit: 'cover' }} 
+              loading='lazy'
             />
           </div>
         ))}

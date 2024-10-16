@@ -17,6 +17,7 @@ const APIC = "https://mancuso.ai/mancusov2/wp-json/v1/certificates";
 const APIT = "https://mancuso.ai/mancusov2/wp-json/v1/get_tags";
 const APIS = "https://mancuso.ai/mancusov2/wp-json/v1/get_testimonial_byid/";
 
+
 function Resume() {
     const [metaTitle, setMetaTitle] = useState();
     const [metaDescription, setMetaDescription] = useState();
@@ -28,6 +29,11 @@ function Resume() {
     const [tags, setTags] = useState([]);
     const [testimonials, setTestimonials] = useState({});
     const [loading, setLoading] = useState(true); // Add loading state
+
+    const getLimitedDescription = (description) => {
+        if (!description) return "";
+        return description.length > 170 ? `${description.substring(0, 167)}...` : description;
+    };    
 
 
     const debounce = (func, delay) => {
@@ -74,10 +80,10 @@ function Resume() {
                     const personOrgItem = graphArray.find(
                         (item) => item["@type"].includes("Person") || item["@type"].includes("Organization")
                     );
-
-                    const personOrgDescription = personOrgItem?.description || '';
     
-                    setMetaDescription(personOrgDescription);
+                    const personOrgDescription = personOrgItem?.description || '';
+                    const limitedDescription = getLimitedDescription(personOrgDescription);
+                    setMetaDescription(limitedDescription);
                     setError(null);
                 } else {
                     throw new Error('No data found');
@@ -211,6 +217,7 @@ useEffect(() => {
         )
     };
     
+    const canonicalURL = window.location.href;
 
     return (
         <div className='main_Content'>
@@ -224,6 +231,7 @@ useEffect(() => {
                     <Helmet>
                        <title>{metaTitle}</title>
                        <meta name="description" content={metaDescription} />
+                       <link rel="canonical" href={canonicalURL} />
                     </Helmet>
                     <div className='resume_section section_padding py-5 bg-white'>
                         <h2 className='section-title text-start pt-4'>Resume</h2>
@@ -249,7 +257,9 @@ useEffect(() => {
                                                                     </span>
                                                                     <div className='exp_item ps-4 pt-2'>
                                                                         {timelineItem.logo && timelineItem.logo.url && (
-                                                                            <img src={timelineItem.logo.url} className="companyN" alt='logoimg' height={50} loading="lazy" />
+                                                                            <img src={timelineItem.logo.url} className="companyN" alt='logoimg' height={50}
+                                                                            width="auto" 
+                                                                            loading="lazy" />
                                                                         )}
                                                                         <p dangerouslySetInnerHTML={{ __html: removeShortcodes(timelineItem.text) }}></p>
 
@@ -271,6 +281,8 @@ useEffect(() => {
                                                                                                             className="d-block"
                                                                                                             alt={item.title}
                                                                                                             loading="lazy"
+                                                                                                            height="auto"
+                                                                                                            width="auto"
                                                                                                         />
                                                                                                     </div>
                                                                                                     <div className="testimonial-info text-left">
@@ -305,7 +317,7 @@ useEffect(() => {
                                         <a href={education[0].settings.image.url} target="_blank" rel="noopener noreferrer">
                                             <div className='coll_inner d-flex align-items-stretch'>
                                                 <div className='coll_logo align-content-center p-4'>
-                                                    <img src={education[0].settings.logo.url} alt={education[0].settings.title} className="img-fluid" loading="lazy" />
+                                                    <img src={education[0].settings.logo.url} alt={education[0].settings.title} className="img-fluid" loading="lazy" height="auto" width="auto" />
                                                 </div>
                                                 <div className='collegeContent p-4'>
                                                     <div className="certi-content">
@@ -330,7 +342,7 @@ useEffect(() => {
                                                 <a href={certificate.settings.image.url} target="_blank" rel="noopener noreferrer">
                                                     <div className='coll_inner d-flex align-items-stretch'>
                                                         <div className='coll_logo align-content-center p-4'>
-                                                            <img src={certificate.settings.logo.url} alt={certificate.name} className="img-fluid" loading="lazy" />
+                                                            <img src={certificate.settings.logo.url} alt="logo" className="img-fluid" loading="lazy" height="auto" width="auto" />
                                                         </div>
                                                         <div className='collegeContent p-4'>
                                                             <div className="certi-content">

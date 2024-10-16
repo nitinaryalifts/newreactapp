@@ -27,6 +27,11 @@ function About() {
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
 
+    const getLimitedDescription = (description) => {
+        if (!description) return "";
+        return description.length > 170 ? `${description.substring(0, 167)}...` : description;
+    };
+
     useEffect(() => {
         const fetchMetaTags = async () => {
             try {
@@ -44,8 +49,8 @@ function About() {
                     );
 
                     const personOrgDescription = personOrgItem?.description || '';
-    
-                    setMetaDescription(personOrgDescription);
+                    const limitedDescription = getLimitedDescription(personOrgDescription);
+                    setMetaDescription(limitedDescription);
                     setError(null);
                 } else {
                     throw new Error('No data found');
@@ -166,6 +171,8 @@ function About() {
         ]
     };
 
+    const canonicalURL = window.location.href;
+    
     return (
         <div className='main_Content'>
             {loading ? (
@@ -177,6 +184,7 @@ function About() {
                     <Helmet>
                        <title>{metaTitle}</title>
                        <meta name="description" content={metaDescription} />
+                       <link rel="canonical" href={canonicalURL} />
                     </Helmet>
                     
                     <div className='about_sections'>
@@ -246,7 +254,7 @@ function About() {
                                             <div className='testimonial_credits'>
                                                 <p className='avtar_name'>{items.name}</p>
                                                 <a href={items.link} className='desg'>{items.company}</a>
-                                                <img className='sliderAvtar_' src={items.image.url} alt="testimonial" loading="lazy" />
+                                                <img className='sliderAvtar_' src={items.image.url} height="auto" width="auto" alt="testimonial" title="testimonial" loading="lazy" />
                                             </div>
                                         </div>
                                     ))}

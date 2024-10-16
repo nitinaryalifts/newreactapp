@@ -25,7 +25,7 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
         {filterOptions.map((category) => (
           <button 
             className={`text-capitalize ${activeCategory === category ? 'active' : ''}`}
-            key={category} 
+            key={category}
             onClick={() => filterPosts(category)}
           >
             {category}
@@ -51,7 +51,11 @@ function App({ loading, filterOptions, activeCategory, setActiveCategory, posts,
                     <img
                       src={post.featured_image}
                       alt={post.title}
-                      style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
+                      loading="lazy"
+                      height="auto"
+                      maxWidth = "100%"
+                      width = "100%"
+                      // style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
                     />
                       <div className='overlay-col' style={{
                       position: 'absolute',
@@ -124,6 +128,11 @@ function Portfolio() {
   const [metaDescription, setMetaDescription] = useState();
   const [error, setError] = useState(null);
 
+  const getLimitedDescription = (description) => {
+    if (!description) return "";
+    return description.length > 170 ? `${description.substring(0, 167)}...` : description;
+};
+
   useEffect(() => {
     const fetchMetaTags = async () => {
         try {
@@ -141,8 +150,8 @@ function Portfolio() {
                 );
 
                 const personOrgDescription = personOrgItem?.description || '';
-
-                setMetaDescription(personOrgDescription);
+                const limitedDescription = getLimitedDescription(personOrgDescription);
+                setMetaDescription(limitedDescription);
                 setError(null);
             } else {
                 throw new Error('No data found');
@@ -182,12 +191,16 @@ function Portfolio() {
     fetchPosts();
   }, []);
 
+  const canonicalURL = window.location.href;
+
   return (
     <>
     <Helmet>
        <title>{metaTitle}</title>
        <meta name="description" content={metaDescription} />
+       <link rel="canonical" href={canonicalURL} />
     </Helmet>
+
     <div className='main_Content'>
       <section className={`portfolio_section section_padding py-5 bg-white ${loading ? 'hidden' : ''}`}>
         <h2 className='section-title text-start portfolio-title pt-4'>Portfolio</h2>

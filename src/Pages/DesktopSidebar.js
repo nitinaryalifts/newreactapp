@@ -38,10 +38,12 @@ function DesktopSidebar({ closeMenu }) {
           <div className="header-image">
             <Link to="/" onClick={closeMenu}>
               <img 
-  src={headerimg}
-  width={60} 
-  loading="lazy" 
-/>
+                src={headerimg}
+                width={60} 
+                height="auto"
+                loading="lazy" 
+                alt={sidebar.logo}
+              />
 
             </Link>
           </div>
