@@ -1,68 +1,38 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+// About.js
+import React, { useRef, useCallback, useEffect } from 'react';
+import { useAbout } from '../Context/AboutContext';
 import '../Style.css';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { FaCompass, FaDiagramProject, FaLightbulb, FaPaperPlane } from "react-icons/fa6";
 import { Row, Col } from 'react-bootstrap';
 import { ClipLoader } from 'react-spinners';
-import axios from 'axios';
 import ContactModal from './ContactModal';
 import Logosslide from './LogoSlider';
 import { Helmet } from 'react-helmet';
 
 function About() {
-    const [metaTitle, setMetaTitle] = useState();
-    const [metaDescription, setMetaDescription] = useState();
-    const [error, setError] = useState(null);
-    const [theme, setTheme] = useState("");
-    const [bigAvatar, setBigAvatar] = useState([]);
-    const [whatWeDo, setWhatWeDo] = useState([]);
-    const [testimonials, setTestimonials] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [showContactModal, setShowContactModal] = useState(false);
+    const {
+        metaTitle,
+        metaDescription,
+        ogTitle,
+        ogDescription,
+        canonicalURL,
+        ogType,
+        ogURL,
+        ogImage,
+        robotsContent,
+        bigAvatar,
+        theme,
+        whatWeDo,
+        testimonials,
+        loading,
+        showContactModal,
+        handleShowContactModal,
+        handleCloseContactModal
+    } = useAbout();
+
     const sliderRef = useRef(null);
-
-    const handleShowContactModal = () => setShowContactModal(true);
-    const handleCloseContactModal = () => setShowContactModal(false);
-
-    const getLimitedDescription = (description) => {
-        if (!description) return "";
-        return description.length > 170 ? `${description.substring(0, 167)}...` : description;
-    };
-
-    useEffect(() => {
-        const fetchMetaTags = async () => {
-            try {
-                const response = await fetch('https://mancuso.ai/mancusov2/wp-json/wp/v2/pages');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    setMetaTitle(data[0].yoast_head_json.title);
-
-                    const graphArray = data[0].yoast_head_json.schema["@graph"];
-                    const personOrgItem = graphArray.find(
-                        (item) => item["@type"].includes("Person") || item["@type"].includes("Organization")
-                    );
-
-                    const personOrgDescription = personOrgItem?.description || '';
-                    const limitedDescription = getLimitedDescription(personOrgDescription);
-                    setMetaDescription(limitedDescription);
-                    setError(null);
-                } else {
-                    throw new Error('No data found');
-                }
-            } catch (error) {
-                console.error("Error fetching meta tags:", error);
-                setError("Failed to fetch meta tags. Please try again later.");
-            }
-        };
-
-        fetchMetaTags();
-    }, []);
 
     const setEqualHeight = useCallback(() => {
         if (sliderRef.current) {
@@ -115,40 +85,6 @@ function About() {
         };
     }, [testimonials, setEqualHeight]);
 
-    // Fetch data for the page
-    useEffect(() => {
-        axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section")
-            .then((resp) => {
-                setTheme(resp.data[0].settings);
-                setBigAvatar(resp.data[0].settings.image.url);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching main section data", error);
-                setLoading(false);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get("https://mancuso.ai/mancusov2/wp-json/v1/services")
-            .then((resp) => {
-                setWhatWeDo(resp.data);
-            })
-            .catch((error) => {
-                console.error("Error fetching services", error);
-            });
-    }, []);
-
-    useEffect(() => {
-        axios.get("https://mancuso.ai/mancusov2/wp-json/v1/home_testimonial")
-            .then((resp) => {
-                setTestimonials(resp.data[0].settings.testimonials);
-            })
-            .catch((error) => {
-                console.error("Error fetching testimonials", error);
-            });
-    }, []);
-
     const settings = {
         dots: false,
         arrow: true,
@@ -171,8 +107,7 @@ function About() {
         ]
     };
 
-    const canonicalURL = window.location.href;
-    
+
     return (
         <div className='main_Content'>
             {loading ? (
@@ -182,12 +117,19 @@ function About() {
             ) : (
                 <>
                     <Helmet>
-                       <title>{metaTitle}</title>
-                       <meta name="description" content={metaDescription} />
-                       <link rel="canonical" href={canonicalURL} />
+                        <title>{metaTitle}</title>
+                        <meta name="description" content={metaDescription} />
+                        <meta name="og:title" content={ogTitle} />
+                        <meta name="og:description" content={ogDescription} />
+                        <link rel="canonical" href={canonicalURL} />
+                        <meta property="og:type" content={ogType}></meta>
+                        <meta property="og:image" content={ogImage}></meta>
+                        <meta property="og:url" content={ogURL}></meta>
+                        <meta name="robots" content={robotsContent} />
                     </Helmet>
                     
                     <div className='about_sections'>
+                        {/* About Me Section */}
                         <section className='aboutme_section'>
                             <Row>
                                 <Col md={6}>
@@ -218,13 +160,15 @@ function About() {
                             </Row>
                         </section>
 
+                        {/* What I Do Section */}
                         <section className='what_iDo text-start bg-white section_padding py-5'>
                             <h3 className='heading'>What I Do</h3>
                             <Row>
-                                {whatWeDo && whatWeDo.map((item, index) => (
+                                {whatWeDo.map((item, index) => (
                                     <Col md={6} key={index}>
                                         <div className='info_box d-flex gap-4 py-3 pe-3'>
                                             <div className='leftIcon'>
+                                                {/* Icons based on index */}
                                                 {index === 0 && <FaCompass />}
                                                 {index === 1 && <FaDiagramProject />}
                                                 {index === 2 && <FaLightbulb />}
@@ -240,21 +184,23 @@ function About() {
                             </Row>
                         </section>
 
+                        {/* Logo Slider */}
                         <Logosslide />
 
+                        {/* Testimonials Section */}
                         <section className='TestimonialSlider bg-white section_padding text-start pb-5 py-5'>
                             <h3 className='heading'>Testimonials</h3>
                             <div className='SliderItems pb-4 pb-sm-5'>
                                 <Slider {...settings} ref={sliderRef}>
-                                    {testimonials.map((items, key) => (
+                                    {testimonials.map((item, key) => (
                                         <div className='Slider_Item d-flex flex-column' key={key}>
                                             <div className='disc_'>
-                                                <p>{items.quote}</p>
+                                                <p>{item.quote}</p>
                                             </div>
                                             <div className='testimonial_credits'>
-                                                <p className='avtar_name'>{items.name}</p>
-                                                <a href={items.link} className='desg'>{items.company}</a>
-                                                <img className='sliderAvtar_' src={items.image.url} height="auto" width="auto" alt="testimonial" title="testimonial" loading="lazy" />
+                                                <p className='avtar_name'>{item.name}</p>
+                                                <a href={item.link} className='desg'>{item.company}</a>
+                                                <img className='sliderAvtar_' src={item.image.url} height="auto" width="auto" alt="testimonial" />
                                             </div>
                                         </div>
                                     ))}
@@ -262,6 +208,7 @@ function About() {
                             </div>
                         </section>
 
+                        {/* Contact Modal */}
                         <ContactModal show={showContactModal} handleClose={handleCloseContactModal} />
                     </div>
                 </>

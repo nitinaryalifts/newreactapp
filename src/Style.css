@@ -12,6 +12,8 @@ body {
 * {
     box-sizing: border-box !important;
 }
+
+
 h4.heading_bl{
     font-size: 18px;
     color: #000 !important;
@@ -190,6 +192,7 @@ a {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     /* height: 100% !important; */
 }
 .slider-container {
@@ -1263,7 +1266,7 @@ p.user_pf_date {
     border: 1px solid #e5e5e5;
     position: relative;
     overflow: hidden !important;
-    height: 100% !important;
+    /* height: 100% !important; */
 }
 
 ul ul {
