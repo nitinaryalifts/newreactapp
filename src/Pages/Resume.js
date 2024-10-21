@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useResume } from '../Context/ResumeContext';
 import Slider from 'react-slick';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,6 +9,7 @@ import '../Style.css';
 import { ClipLoader } from 'react-spinners';
 import { Row, Col } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import TestimonialsSlider from './TestimonialsSlider'; 
 
 function Resume() {
     const {
@@ -28,53 +29,6 @@ function Resume() {
         ogImage,
         robotsContent,
     } = useResume();
-
-    const sliderRef = useRef(null);
-
-    const debounce = (func, delay) => {
-        let timeout;
-        return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func(...args), delay);
-        };
-    };
-
-    const setEqualHeight = () => {
-        if (sliderRef.current) {
-            const slides = sliderRef.current.innerSlider.list.querySelectorAll('.testimonial-content');
-            let maxHeight = 0;
-
-            slides.forEach(slide => {
-                slide.style.height = 'auto';
-            });
-
-            requestAnimationFrame(() => {
-                slides.forEach(slide => {
-                    const height = slide.offsetHeight;
-                    maxHeight = Math.max(maxHeight, height);
-                });
-
-                slides.forEach(slide => {
-                    slide.style.height = `${maxHeight}px`;
-                });
-            });
-        }
-    };
-    
-
-    useEffect(() => {
-        setEqualHeight();
-
-        const handleResize = debounce(() => {
-            setEqualHeight();
-        }, 200);
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [testimonials]);
     
 
     const extractTestimonialId = (text) => {
@@ -100,7 +54,7 @@ function Resume() {
         nextArrow: <IoIosArrowForward />,
         prevArrow: <IoIosArrowBack />,
         arrows: true,
-        adaptiveHeight: false, // Disable built-in adaptive height
+        adaptiveHeight: false,
     };
 
     return (
@@ -149,35 +103,11 @@ function Resume() {
                                                                             <img src={timelineItem.logo.url} className="companyN" alt='logoimg' height={50} width="auto" loading="lazy" />
                                                                         )}
                                                                         <p dangerouslySetInnerHTML={{ __html: removeShortcodes(timelineItem.text) }}></p>
-                                                                        {testimonialId &&
-                                                                            testimonials[testimonialId] &&
-                                                                            testimonials[testimonialId].length > 0 && (
-                                                                                <Slider key={testimonialId} ref={sliderRef} {...sliderSettings}>
-                                                                                    {testimonials[testimonialId].map((item) => (
-                                                                                        <div key={item.id} className="testimonial-container slide_ht"> {/* Added slide_ht class */}
-                                                                                            <div className='testimonial-content'>
-                                                                                                <p>{stripHtmlTags(item.content)}</p>
-                                                                                            </div>
-                                                                                            <div className='d-flex gap-3'>
-                                                                                                <div className="testimonial-image">
-                                                                                                    <img
-                                                                                                        src={item.featured_image}
-                                                                                                        className="d-block"
-                                                                                                        alt={item.title}
-                                                                                                        loading="lazy"
-                                                                                                        height="auto"
-                                                                                                        width="auto"
-                                                                                                    />
-                                                                                                </div>
-                                                                                                <div className="testimonial-info text-left">
-                                                                                                    <h5>{item.title}</h5>
-                                                                                                    <h6>{item.post_meta.tss_company}</h6>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    ))} 
-                                                                                </Slider>
-                                                                            )}
+                                                                        <div>
+                                                                        {testimonialId && testimonials[testimonialId]?.length > 0 && (
+                                                                            <TestimonialsSlider testimonials={testimonials[testimonialId]} />
+                                                                        )}
+                                                                        </div>
                                                                     </div>
                                                                 </li>
                                                             );

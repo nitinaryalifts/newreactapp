@@ -7,15 +7,15 @@ import { LogoProvider } from './LogoContext'
 
 const CombinedProvider = ({ children }) => {
     return (
-        <LogoProvider>
-            <AboutProvider>
+        <AboutProvider>
+            <LogoProvider>
                 <ResumeProvider>
                     <PortfolioProvider>
                         {children}
                     </PortfolioProvider>
                 </ResumeProvider>
-            </AboutProvider>
-        </LogoProvider>
+            </LogoProvider>
+        </AboutProvider>
     );
 };
 
