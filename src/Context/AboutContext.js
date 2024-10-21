@@ -96,9 +96,6 @@ export const AboutProvider = ({ children }) => {
                 setWhatWeDo(servicesResponse.data);
                 setTestimonials(testimonialsResponse.data[0].settings.testimonials);
 
-                // Fetch favicon and logo
-                const logoResponse = await axios.get("https://mancuso.ai/wp-json/v1/theme-settings");
-                setFaviconUrl(logoResponse.data.favicon);  // Assuming favicon is in this API response
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -108,6 +105,16 @@ export const AboutProvider = ({ children }) => {
 
         fetchData();
     }, []);
+
+const fetchFavicon = async () => {
+    try {
+        const response = await axios.get("https://mancuso.ai/wp-json/v1/theme-settings");
+        console.log("Fetched favicon URL:", response.data.favicon);
+        setFaviconUrl(response.data.favicon);
+    } catch (error) {
+        console.error("Error fetching favicon:", error);
+    }
+};
 
     return (
         <AboutContext.Provider value={{

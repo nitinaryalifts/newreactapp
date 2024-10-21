@@ -108,11 +108,12 @@ function About() {
         ]
     };
 
+
     useEffect(() => {
         if (faviconUrl) {
             const link = document.createElement('link');
             link.rel = 'icon';
-            link.href = faviconUrl.startsWith('//') ? `https:${faviconUrl}` : faviconUrl;
+            link.href = faviconUrl;
             document.head.appendChild(link);
 
             return () => {
@@ -120,6 +121,7 @@ function About() {
             };
         }
     }, [faviconUrl]);
+    
 
 
     return (
@@ -140,6 +142,7 @@ function About() {
                         <meta property="og:image" content={ogImage}></meta>
                         <meta property="og:url" content={ogURL}></meta>
                         <meta name="robots" content={robotsContent} />
+                        {faviconUrl && <link rel="icon" href={faviconUrl} />}
                     </Helmet>
                     
                     <div className='about_sections'>
