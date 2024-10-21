@@ -29,7 +29,8 @@ function About() {
         loading,
         showContactModal,
         handleShowContactModal,
-        handleCloseContactModal
+        handleCloseContactModal,
+        faviconUrl,
     } = useAbout();
 
     const sliderRef = useRef(null);
@@ -106,6 +107,19 @@ function About() {
             }
         ]
     };
+
+    useEffect(() => {
+        if (faviconUrl) {
+            const link = document.createElement('link');
+            link.rel = 'icon';
+            link.href = faviconUrl.startsWith('//') ? `https:${faviconUrl}` : faviconUrl;
+            document.head.appendChild(link);
+
+            return () => {
+                document.head.removeChild(link);
+            };
+        }
+    }, [faviconUrl]);
 
 
     return (

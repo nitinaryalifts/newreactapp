@@ -24,6 +24,7 @@ export const AboutProvider = ({ children }) => {
     const [testimonials, setTestimonials] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showContactModal, setShowContactModal] = useState(false);
+    const [faviconUrl, setFaviconUrl] = useState("");
 
     const handleShowContactModal = () => setShowContactModal(true);
     const handleCloseContactModal = () => setShowContactModal(false);
@@ -45,7 +46,7 @@ export const AboutProvider = ({ children }) => {
                     setOgDescription(yoastData.og_description);
                     setCanonicalURL(yoastData.canonical);
                     setOgType(yoastData.og_type);
-                    setOgURL(yoastData.og_url)
+                    setOgURL(yoastData.og_url);
 
                     const schemaData = yoastData.schema["@graph"].find(item => 
                         item["@type"].includes("Person") && item["@type"].includes("Organization")
@@ -55,12 +56,10 @@ export const AboutProvider = ({ children }) => {
                         const description = schemaData.description.length > 167 
                             ? schemaData.description.slice(0, 167) + '...' 
                             : schemaData.description;
-                    
                         setMetaDescription(description);
                     } else {
                         console.warn("Schema data for Person and Organization not found.");
-                    }                    
-                    
+                    }
 
                     if (yoastData.og_image && yoastData.og_image.length > 0) {
                         setOgImage(yoastData.og_image[0].url);
@@ -81,14 +80,13 @@ export const AboutProvider = ({ children }) => {
                             maxImagePreview ? `max-image-preview:${maxImagePreview}` : null,
                             maxVideoPreview ? `max-video-preview:${maxVideoPreview}` : null,
                         ].filter(Boolean);
-
                         setRobotsContent(robotsArray.join(', '));
                     }
-
                 } else {
                     console.warn("Page not found for slug:", targetSlug);
                 }
 
+                // Fetching additional theme data
                 const themeResponse = await axios.get("https://mancuso.ai/mancusov2/wp-json/v1/main_section");
                 const servicesResponse = await axios.get("https://mancuso.ai/mancusov2/wp-json/v1/services");
                 const testimonialsResponse = await axios.get("https://mancuso.ai/mancusov2/wp-json/v1/home_testimonial");
@@ -98,6 +96,9 @@ export const AboutProvider = ({ children }) => {
                 setWhatWeDo(servicesResponse.data);
                 setTestimonials(testimonialsResponse.data[0].settings.testimonials);
 
+                // Fetch favicon and logo
+                const logoResponse = await axios.get("https://mancuso.ai/wp-json/v1/theme-settings");
+                setFaviconUrl(logoResponse.data.favicon);  // Assuming favicon is in this API response
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -128,6 +129,7 @@ export const AboutProvider = ({ children }) => {
             showContactModal,
             handleShowContactModal,
             handleCloseContactModal,
+            faviconUrl,
         }}>
             {children}
         </AboutContext.Provider>
