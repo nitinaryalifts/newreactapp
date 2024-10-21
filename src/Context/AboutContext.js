@@ -57,14 +57,10 @@ export const AboutProvider = ({ children }) => {
                             ? schemaData.description.slice(0, 167) + '...' 
                             : schemaData.description;
                         setMetaDescription(description);
-                    } else {
-                        console.warn("Schema data for Person and Organization not found.");
                     }
 
                     if (yoastData.og_image && yoastData.og_image.length > 0) {
                         setOgImage(yoastData.og_image[0].url);
-                    } else {
-                        console.warn("og_image not found in yoast data.");
                     }
 
                     if (yoastData.keywords) {
@@ -106,15 +102,23 @@ export const AboutProvider = ({ children }) => {
         fetchData();
     }, []);
 
-const fetchFavicon = async () => {
-    try {
-        const response = await axios.get("https://mancuso.ai/wp-json/v1/theme-settings");
-        console.log("Fetched favicon URL:", response.data.favicon);
-        setFaviconUrl(response.data.favicon);
-    } catch (error) {
-        console.error("Error fetching favicon:", error);
-    }
-};
+    const fetchFavicon = async () => {
+        try {
+            const response = await axios.get("https://mancuso.ai/wp-json/v1/theme-settings");
+            const faviconUrl = response.data.photo.url;
+            if (faviconUrl) {
+                setFaviconUrl(faviconUrl);
+            } else {
+                console.warn("Favicon URL is undefined or not available.");
+            }
+        } catch (error) {
+            console.error("Error fetching favicon:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchFavicon();
+    }, []);
 
     return (
         <AboutContext.Provider value={{

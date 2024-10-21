@@ -107,22 +107,7 @@ function About() {
             }
         ]
     };
-
-
-    useEffect(() => {
-        if (faviconUrl) {
-            const link = document.createElement('link');
-            link.rel = 'icon';
-            link.href = faviconUrl;
-            document.head.appendChild(link);
-
-            return () => {
-                document.head.removeChild(link);
-            };
-        }
-    }, [faviconUrl]);
     
-
 
     return (
         <div className='main_Content'>
