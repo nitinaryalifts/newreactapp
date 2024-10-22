@@ -10,7 +10,7 @@ import DesktopSidebar from './Pages/DesktopSidebar';
 import MobileHeader from './Pages/MobileHeader';
 import Error404 from './Pages/Error404';
 import CombinedProvider from './Context/CombinedProvider';
-
+import ScrollToTop from './ScrollToTop';
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
         <MobileHeader />
       </div>
       <CombinedProvider>
+      <ScrollToTop />
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/resume" element={<Resume />} />

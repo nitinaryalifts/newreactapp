@@ -71,7 +71,8 @@ function App() {
                       src={post.featured_image}
                       alt={post.title}
                       loading="lazy"
-                      style={{ width: '100%', height: 'auto' }}
+                      width="100%"
+                      height='auto'
                     />
                     {/* Overlay elements */}
                     <div className='overlay-col' style={{
