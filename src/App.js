@@ -2,10 +2,11 @@ import React from 'react';
 import './App.css';
 import './Style.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import About from './Pages/About';
+import About from './Pages/About-Me';
 import Resume from './Pages/Resume';
 import Portfolio from './Pages/Portfolio';
 import Single from './Pages/Single';
+import Posts from './Pages/Posts';
 import DesktopSidebar from './Pages/DesktopSidebar';
 import MobileHeader from './Pages/MobileHeader';
 import Error404 from './Pages/Error404';
@@ -25,7 +26,9 @@ function App() {
       <ScrollToTop />
         <Routes>
           <Route path="/" element={<About />} />
+          <Route path="/about-me" element={<About />} />
           <Route path="/resume" element={<Resume />} />
+          <Route path="/posts" element={<Posts />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/portfolio/:id" element={<Single />} />
           <Route path="*" element={<Error404 />} />

@@ -26,7 +26,7 @@ const Single = () => {
   }, [post]);
 
   const handleClose = () => {
-    navigate('/portfolio');
+    navigate('/portfolio/');
 };
   
 

@@ -1,4 +1,3 @@
-// About.js
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useAbout } from '../Context/AboutContext';
 import '../Style.css';

@@ -3,6 +3,7 @@ import React from 'react';
 import { AboutProvider } from './AboutContext';
 import { ResumeProvider } from './ResumeContext';
 import { PortfolioProvider } from './PortfolioContext';
+// import { BlogsProvider } from './BlogsContext'
 import { LogoProvider } from './LogoContext'
 
 const CombinedProvider = ({ children }) => {
@@ -11,7 +12,9 @@ const CombinedProvider = ({ children }) => {
             <LogoProvider>
                 <ResumeProvider>
                     <PortfolioProvider>
-                        {children}
+                        
+                           {children}
+                        
                     </PortfolioProvider>
                 </ResumeProvider>
             </LogoProvider>
