@@ -35,7 +35,7 @@ const Posts = () => {
           </h2>
           {loading ? (
             <div className="loading">
-              <ClipLoader loading={loading} size={50} />
+              <ClipLoader loading={loading} size={0} />
             </div>
           ) : error ? (
             <p>Error fetching posts: {error}</p>
