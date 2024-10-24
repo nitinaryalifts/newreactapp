@@ -1,11 +1,8 @@
-// Posts.js
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePosts } from "../Context/PostsContext";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { useBeforeUnload, useLocation } from "react-router-dom";
-
 
 const Posts = () => {
     const { posts, loading, error, metaData } = usePosts();
@@ -13,16 +10,10 @@ const Posts = () => {
 
     useEffect(() => {
         if (!loading) {
-          // Apply slide-in animation once loading is complete
-          let timeout = setTimeout(() => setAnimationClass("slide-enter"), 0);
-          return () => clearTimeout(timeout);
+            let timeout = setTimeout(() => setAnimationClass("slide-enter"), 0);
+            return () => clearTimeout(timeout);
         }
-      }, [loading]);
-    
-      useBeforeUnload(() => {
-        let timeout = setTimeout(() => setAnimationClass("slide-exit"), 100);
-        return () => clearTimeout(timeout);
-      });
+    }, [loading]);
 
     return (
         <>
@@ -45,8 +36,21 @@ const Posts = () => {
                                     {posts.map((post) => (
                                         <div className="col-md-4" key={post.id}>
                                             <div className="border p-3">
-                                                <h1 className="post-title pt-3">{post.title.rendered}</h1>
+                                                {post.featured_media && (
+                                                    <img 
+                                                        src={post.yoast_head_json.og_image[0].url} 
+                                                        alt={post.title.rendered} 
+                                                        className="img-fluid mb-3" 
+                                                    />
+                                                )}
+                                                <h1 className="post-title">{post.title.rendered}</h1>
+                                                <div className="d-flex justify-content-between">
+                                                <p>Author: {post.authorName}</p>
+                                                <p>Date: {new Date(post.date).toLocaleDateString()}</p>
+                                                </div>
+                                                {/* <p>Categories: {post.categories}</p> */}
                                                 <div dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
+                                                {/* <p>Comments: {post.comment_count}</p> */}
                                                 <span className="read_btn">
                                                     <Link to={`/posts/${post.id}`} state={{ post }}>
                                                         Read more
