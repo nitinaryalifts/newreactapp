@@ -93,7 +93,10 @@ function DesktopSidebar({ closeMenu = () => {} }) {
                     handleMenuClick(item);
                   }}
                   className={({ isActive }) => 
-                    isActive || (location.pathname === '/' && item.slug === 'about-me') ? 'active' : ''
+                    isActive || 
+                    (item.slug === 'about-me' && (location.pathname === '/' || location.pathname === '/about-me'))
+                      ? 'active' 
+                      : ''
                   }
                 >
                   {item.title}

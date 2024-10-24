@@ -27,11 +27,11 @@ const Posts = () => {
     return (
         <>
             <Helmet>
-                <title>Blogs</title>
+                <title>Blogs - Michael Mancuso</title>
             </Helmet>
             <div className="main_Content">
                 <section className={`portfolio_section section_padding py-5 bg-white animate_section ${animationClass}`}>
-                    <h2 className="section-title text-start portfolio-title pt-4">Blog Posts</h2>
+                    <h2 className="section-title text-start portfolio-title pt-4">Blogs</h2>
                     {loading ? (
                         <div className="loading">
                             <ClipLoader loading={loading} size={50} />
