@@ -1,12 +1,28 @@
 // Posts.js
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { usePosts } from "../Context/PostsContext";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import { useBeforeUnload, useLocation } from "react-router-dom";
+
 
 const Posts = () => {
     const { posts, loading, error, metaData } = usePosts();
+    const [animationClass, setAnimationClass] = useState("");
+
+    useEffect(() => {
+        if (!loading) {
+          // Apply slide-in animation once loading is complete
+          let timeout = setTimeout(() => setAnimationClass("slide-enter"), 0);
+          return () => clearTimeout(timeout);
+        }
+      }, [loading]);
+    
+      useBeforeUnload(() => {
+        let timeout = setTimeout(() => setAnimationClass("slide-exit"), 100);
+        return () => clearTimeout(timeout);
+      });
 
     return (
         <>
@@ -14,7 +30,7 @@ const Posts = () => {
                 <title>Blogs</title>
             </Helmet>
             <div className="main_Content">
-                <section className={`portfolio_section section_padding py-5 bg-white`}>
+                <section className={`portfolio_section section_padding py-5 bg-white animate_section ${animationClass}`}>
                     <h2 className="section-title text-start portfolio-title pt-4">Blog Posts</h2>
                     {loading ? (
                         <div className="loading">
